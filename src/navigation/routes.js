@@ -1,9 +1,16 @@
 export const ROUTES = {
-    drawer: 'Drawer',
-    home: 'Home',
-    dashboard: "Dashboard",
-    playlist: "Playlist",
-    playVideo: "PlayVideo",
-    login:"Login"
-
+  splash: 'Splash',
+  otp: 'OTP',
+  signup: 'Signup',
+  drawer: 'Drawer',
+  tab: 'Tab',
+  home: 'Home',
+  dashboard: 'Dashboard',
+  playlist: 'Playlist',
+  playVideo: 'PlayVideo',
+  login: 'Login',
+  myCourse: 'My Course',
+  downloads: 'Downloads',
+  settings: 'Settings',
+  youtube: 'Youtube',
 };
