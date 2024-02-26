@@ -5,6 +5,8 @@ export const ROUTES = {
   drawer: 'Drawer',
   tab: 'Tab',
   home: 'Home',
+  profile: 'Profile',
+  about: 'About',
   dashboard: 'Dashboard',
   playlist: 'Playlist',
   playVideo: 'PlayVideo',
@@ -13,4 +15,7 @@ export const ROUTES = {
   downloads: 'Downloads',
   settings: 'Settings',
   youtube: 'Youtube',
+  currentAffair: 'Current Affairs',
+  news: 'News',
+  syllabus: 'Syllabus',
 };

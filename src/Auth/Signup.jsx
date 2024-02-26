@@ -219,8 +219,8 @@ const Signup = ({navigation}) => {
                       onPress={() => {
                         props.handleSubmit();
                       }}
-                      disabledStyle={{backgroundColor: THEME.COLOR_GRAY_LIGHT}}
-                      disabledTitleStyle={{color: THEME.COLOR_BLACK}}
+                      disabledStyle={{backgroundColor: THEME.COLOR_BLUE}}
+                      disabledTitleStyle={{color: THEME.COLOR_WHITE}}
                       containerStyle={{
                         borderWidth: 2,
                         borderColor: '#ffffff8a',

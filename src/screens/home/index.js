@@ -2,6 +2,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
   useWindowDimensions,
 } from 'react-native';
@@ -11,6 +12,7 @@ import Ads from '../../components/Ads';
 import {THEME} from '../../utils/colors';
 import Affairs from '../Affairs';
 import {getSliderImages} from '../../services/userApi';
+import {ROUTES} from '../../navigation/routes';
 
 const Home = ({navigation}) => {
   const [slider, setSlider] = useState([]);
@@ -46,7 +48,10 @@ const Home = ({navigation}) => {
           <View style={styles.courses}>
             <Courses title={'Free Course'} />
             <Courses title={'Free Test'} />
-            <Courses title={'Syllabus'} />
+            <TouchableOpacity
+              onPress={() => navigation.navigate(ROUTES.syllabus)}>
+              <Courses title={'Syllabus'} />
+            </TouchableOpacity>
           </View>
         </View>
       </>
@@ -61,7 +66,6 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    borderWidth: 1,
     backgroundColor: THEME.COLOR_WHITE,
   },
   courseContainer: {

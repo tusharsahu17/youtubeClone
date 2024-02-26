@@ -11,24 +11,17 @@ import {THEME} from '../utils/colors';
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
+  const option = {
+    headerShown: true,
+    headerStyle: {
+      backgroundColor: THEME.COLOR_BLUE,
+    },
+    headerTintColor: THEME.COLOR_WHITE,
+  };
   return (
     <Tab.Navigator>
       <Tab.Group>
-        <Tab.Screen
-          name={ROUTES.home}
-          component={Home}
-          options={{
-            headerShown: true,
-            tabBarIcon: ({color, size}) => <Text>Home</Text>,
-            // headerStyle: {
-            //   backgroundColor: THEME.THEME_COLOR,
-            // },
-            // headerTintColor: THEME.COLOR_BLACK,
-            // headerTitleStyle: {
-            //   fontWeight: 'bold',
-            // },
-          }}
-        />
+        <Tab.Screen name={ROUTES.home} component={Home} options={option} />
         <Tab.Screen
           name={ROUTES.myCourse}
           component={MyCourse}
@@ -56,10 +49,7 @@ const TabNavigation = () => {
         <Tab.Screen
           name={ROUTES.settings}
           component={Settings}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({color, size}) => <Text>Settings</Text>,
-          }}
+          options={option}
         />
       </Tab.Group>
     </Tab.Navigator>

@@ -41,7 +41,7 @@ const Login = ({navigation}) => {
         <View style={styles.topContainer}>
           <View style={styles.imageConatiner}>
             <Image
-              style={{width: 400, height: 200, resizeMode: 'center'}}
+              style={{width: 400, height: 200, resizeMode: 'contain'}}
               source={LOGO}
             />
           </View>
@@ -86,7 +86,7 @@ const Login = ({navigation}) => {
           />
 
           <Button
-            buttonStyle={{backgroundColor: '#328cce', margin: 10}}
+            buttonStyle={{backgroundColor: THEME.COLOR_BLUE, margin: 10}}
             title="SignUp"
             titleStyle={styles.buttonText}
             onPress={() => navigation.navigate(ROUTES.signup)}
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 10,
-    backgroundColor: THEME.BUTTON_COLOR,
+    backgroundColor: THEME.COLOR_BLUE,
     height: 50,
   },
 });

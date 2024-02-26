@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
 
   button: {
     margin: 10,
-    backgroundColor: THEME.BUTTON_COLOR,
+    backgroundColor: THEME.COLOR_BLUE,
     height: 50,
   },
   headerTextContainer: {
