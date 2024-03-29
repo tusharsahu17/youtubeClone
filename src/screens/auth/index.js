@@ -7,75 +7,82 @@ import {
   ActivityIndicator,
   Image,
   Alert,
+  ToastAndroid,
 } from 'react-native';
 import {Button, Input} from '@rneui/themed';
 import {ROUTES} from '../../navigation/routes';
-import {sendOtp} from '../../services/userApi';
+import {login, sendOtp} from '../../services/userApi';
 import {LOGO} from '../../utils/image';
 import {THEME} from '../../utils/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {signIn} from '../../features/auth/authSlice';
 
 const Login = ({navigation}) => {
   const [loader, setLoader] = useState(false);
-  const [phoneNo, setPhoneNo] = useState('8876434325');
+  const [email, setEmail] = useState('ankit@gmail.com');
+  const [password, setPassword] = useState('Ankit@123');
+
   const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
     setLoader(true);
     const body = {
-      phone_no: phoneNo,
+      email: email,
+      pass: password,
     };
-    const res = await sendOtp(body);
-    if (res.status) {
-      console.log('otp', res.message);
-      navigation.navigate(ROUTES.otp, {phoneNo});
-    } else {
-      Alert.alert(res.message);
-    }
-    // console.log("res", res);
+    const res = await login(body);
+    await AsyncStorage.setItem('token', res.token);
+    dispatch(signIn(res));
+    ToastAndroid.show(res?.msg, ToastAndroid.SHORT);
     setLoader(false);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
-        <View style={styles.topContainer}>
-          <View style={styles.imageConatiner}>
-            <Image
-              style={{width: 400, height: 200, resizeMode: 'contain'}}
-              source={LOGO}
-            />
-          </View>
-
-          <View style={styles.headingTextContainer}>
-            <Text style={styles.headingTextStyle}>
-              Please enter your phone number to login
-            </Text>
-            {errorMessage && (
-              <Text style={[styles.headingTextStyle, styles.error]}>
-                {errorMessage}
-              </Text>
-            )}
-          </View>
-
-          <View style={styles.MobileNumberContainer}>
-            <Input
-              keyboardType="number-pad"
-              placeholder=""
-              errorStyle={{marginBottom: 40}}
-              value={phoneNo}
-              // errorMessage={errorMessage}
-              label="Mobile Number"
-              maxLength={10}
-              inputStyle={styles.mobileInput}
-              leftIcon={<Text style={styles.icon91}>+91</Text>}
-              onChangeText={val => {
-                setPhoneNo(val);
-              }}
-              onSubmitEditing={handleLogin}
-            />
-          </View>
+        <View style={styles.imageConatiner}>
+          <Image
+            style={{width: 400, height: 200, resizeMode: 'contain'}}
+            source={LOGO}
+          />
         </View>
 
+        <View style={styles.headingTextContainer}>
+          <Text style={styles.headingTextStyle}>
+            Please enter your phone number to login
+          </Text>
+          {errorMessage && (
+            <Text style={[styles.headingTextStyle, styles.error]}>
+              {errorMessage}
+            </Text>
+          )}
+        </View>
+        <View style={{marginTop: 50}}>
+          <Input
+            keyboardType="email-address"
+            placeholder=""
+            value={email}
+            label="Email"
+            inputStyle={styles.mobileInput}
+            // leftIcon={<Text style={styles.icon91}>+91</Text>}
+            onChangeText={val => {
+              setEmail(val);
+            }}
+            // onSubmitEditing={handleLogin}
+          />
+          <Input
+            placeholder=""
+            value={password}
+            label="Password"
+            inputStyle={styles.mobileInput}
+            onChangeText={val => {
+              setPassword(val);
+            }}
+            // onSubmitEditing={handleLogin}
+          />
+        </View>
         <View style={styles.buttonContainer}>
           <Button
             //color= "red"
@@ -109,23 +116,19 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    flexDirection: 'column',
-  },
-  topContainer: {
-    flex: 2,
+    justifyContent: 'center',
+    margin: 10,
   },
   error: {
     color: THEME.COLOR_DANGER_DARK,
   },
   imageConatiner: {
-    flex: 2,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     // backgroundColor: Colors.COLOR_PRIMARY,
   },
   headingTextContainer: {
-    flex: 0.5,
     // flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -136,12 +139,7 @@ const styles = StyleSheet.create({
     fontWeight: THEME.FONT_WEIGHT_MEDIUM,
     color: THEME.COLOR_GRAY,
   },
-  MobileNumberContainer: {
-    flex: 0.8,
-    marginLeft: 15,
-    marginRight: 15,
-    marginBottom: 7,
-  },
+
   mobileInput: {
     fontWeight: THEME.FONT_WEIGHT_MEDIUM,
     fontSize: THEME.FONT_SIZE_LARGE,
@@ -154,7 +152,6 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    flex: 1,
     justifyContent: 'flex-start',
   },
   loader: {

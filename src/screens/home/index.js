@@ -11,23 +11,22 @@ import Courses from '../../components/Courses';
 import Ads from '../../components/Ads';
 import {THEME} from '../../utils/colors';
 import Affairs from '../Affairs';
-import {getSliderImages} from '../../services/userApi';
 import {ROUTES} from '../../navigation/routes';
 
 const Home = ({navigation}) => {
   const [slider, setSlider] = useState([]);
 
   const fetchSlider = async () => {
-    try {
-      const res = await getSliderImages();
-      if (res) {
-        setSlider(res);
-      } else {
-        setSlider([]);
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+    // try {
+    //   const res = await getSliderImages();
+    //   if (res) {
+    //     setSlider(res);
+    //   } else {
+    //     setSlider([]);
+    //   }
+    // } catch (error) {
+    //   console.error('Error fetching data:', error);
+    // }
   };
 
   useEffect(() => {
