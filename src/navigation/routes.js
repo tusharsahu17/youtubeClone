@@ -19,5 +19,6 @@ export const ROUTES = {
   news: 'News',
   syllabus: 'Syllabus',
   paidCourse: 'Paid Course',
-  PaidExams: 'PaidExams',
+  paidExams: 'Paid Exams',
+  paidDetails: 'Paid Details',
 };

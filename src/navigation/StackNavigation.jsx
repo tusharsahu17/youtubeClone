@@ -19,6 +19,7 @@ import AboutApp from '../screens/Settings/AboutApp';
 import Syllabus from '../screens/home/Syllabus';
 import PaidCourses from '../screens/MyCourse/PaidCourses';
 import PaidExams from '../screens/MyCourse/paidCourse/PaidExams';
+import PaidDetails from '../screens/MyCourse/paidCourse/PaidDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,7 +39,7 @@ const StackNavigation = () => {
     headerTintColor: THEME.COLOR_WHITE,
   };
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName={ROUTES.paidCourse}>
       {!isAuthenticated ? (
         <Stack.Group>
           <Stack.Screen
@@ -67,7 +68,8 @@ const StackNavigation = () => {
               options={{headerShown: false}}
             />
             <Stack.Screen name={ROUTES.paidCourse} component={PaidCourses} />
-            <Stack.Screen name={ROUTES.PaidExams} component={PaidExams} />
+            <Stack.Screen name={ROUTES.paidDetails} component={PaidDetails} />
+            <Stack.Screen name={ROUTES.paidExams} component={PaidExams} />
 
             <Stack.Screen name={ROUTES.playlist} component={Playlist} />
             <Stack.Screen name={ROUTES.playVideo} component={PlayVideo} />
