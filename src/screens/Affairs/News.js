@@ -6,15 +6,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {THEME} from '../../utils/colors';
 import {DOMAIN_URL} from '../../utils/constants';
 import {ROUTES} from '../../navigation/routes';
 
 const News = ({navigation, route}) => {
+  const details = route?.params?.item;
+  console.log(details);
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: route.params.item.title,
+      title: details?.title,
     });
   }, [navigation]);
 
@@ -28,7 +30,9 @@ const News = ({navigation, route}) => {
       <Image
         style={styles.cardImage}
         source={{
-          uri: `${DOMAIN_URL}/media/${route.params.item.featured_image}`,
+          uri: `${details?.image}`,
+
+          // uri: `${DOMAIN_URL}/media/${route.params.item.featured_image}`,
         }}
       />
 

@@ -6,7 +6,7 @@ const Ads = ({data}) => {
   const {width} = Dimensions.get('window');
 
   const renderItem = ({item}) => (
-    <Image source={{uri: item.silder_image}} style={[styles.image, {width}]} />
+    <Image source={{uri: item.image}} style={[styles.image, {width: width}]} />
   );
 
   return (
@@ -24,7 +24,7 @@ const Ads = ({data}) => {
         layout={'default'}
         loop
         autoplay
-        autoplayInterval={1000}
+        autoplayInterval={8000}
       />
     </View>
   );
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    height: 150,
+    height: 200,
   },
   title: {
     fontSize: 16,

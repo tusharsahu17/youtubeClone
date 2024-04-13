@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import {LOGO} from './image';
 
 export const SCHEDULE_STATUS = 'Scheduled';
 export const WAITING_STATUS = 'Waiting';
@@ -24,22 +25,37 @@ export const TIME_TIMELINE = 'Time';
 export const LIST_LIMIT = 3;
 export const CUSTOM_STRING_SEPARATOR = '$_$';
 
-export const TEMPERATURETYPE = [
-  {label: ' Celsius (°C)', value: 'C'},
-  {label: 'Fahrenheit (°F)', value: 'F'},
-  {label: 'Kelvin (K)', value: 'K'},
+export const ADS = [
+  {id: 1, image: 'https://reqres.in/img/faces/1-image.jpg'},
+  {id: 2, image: 'https://reqres.in/img/faces/2-image.jpg'},
+  {id: 3, image: 'https://reqres.in/img/faces/3-image.jpg'},
 ];
-export const GENDER = [
-  {label: 'MALE', value: 'Male'},
-  {label: 'FEMALE', value: 'Female'},
-  {label: 'OTHER', value: 'Other'},
+export const CURRENT_AFFAIRS = [
+  {
+    image: 'https://reqres.in/img/faces/1-image.jpg',
+    title: 'New Coaching Launching',
+    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl, at luctus odio consectetur sit amet. Fusce fermentum libero quis magna feugiat, non gravida nulla dignissim. Integer vel enim sed odio fermentum laoreet. Duis ut nulla vel odio malesuada lobortis vel eu dui. Sed nec mauris sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl, at luctus odio consectetur sit amet. Fusce fermentum libero quis magna feugiat, non gravida nulla dignissim. Integer vel enim sed odio fermentum laoreet.
+    Duis ut nulla vel odio malesuada lobortis vel eu dui. Sed nec mauris sem.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl, at luctus odio consectetur sit amet. Fusce fermentum libero quis magna feugiat, non gravida nulla dignissim. Integer vel enim sed odio fermentum laoreet. Duis ut nulla vel odio malesuada lobortis vel eu dui. Sed nec mauris sem.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl, at luctus odio consectetur sit amet. Fusce fermentum libero quis magna feugiat, non gravida nulla dignissim. Integer vel enim sed odio fermentum laoreet. Duis ut nulla vel odio malesuada lobortis vel eu dui. Sed nec mauris sem.`,
+  },
+  {
+    image: 'https://reqres.in/img/faces/2-image.jpg',
+    title: 'To keep ReqRes free',
+    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl,Sed nec mauris sem. `,
+  },
+  {
+    image: 'https://reqres.in/img/faces/3-image.jpg',
+    title: 'contributions towards server costs are appreciated',
+    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl, at luctus odio consectetur sit amet. Fusce fermentum libero quis magna feugiat, non gravida nulla dignissim. Integer vel enim sed odio fermentum laoreet. Duis ut nulla vel odio malesuada lobortis vel eu dui. Sed nec mauris sem. `,
+  },
 ];
 
-export const MEMBERSHIP_TYPE = [
-  {label: 'ARMY', value: 'army'},
-  {label: 'STUDENT', value: 'student'},
-  {label: 'OTHER', value: ''},
-];
+export const USER_PROFILE = {
+  name: 'Rajesh Kumar Sahoo',
+  email: 'rajesh@gmail.com',
+  mobile: '9876543210',
+  gender: 'Male',
+  image: 'https://reqres.in/img/faces/1-image.jpg',
+};
 // task Status
 
 export const OPEN = 'Open';

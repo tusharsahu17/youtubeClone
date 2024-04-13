@@ -12,10 +12,13 @@ import Ads from '../../components/Ads';
 import {THEME} from '../../utils/colors';
 import Affairs from '../Affairs';
 import {ROUTES} from '../../navigation/routes';
+import {ADS} from '../../utils/DataKey';
 
 const Home = ({navigation}) => {
   const [slider, setSlider] = useState([]);
-
+  useEffect(() => {
+    setSlider(ADS);
+  }, []);
   const fetchSlider = async () => {
     // try {
     //   const res = await getSliderImages();
@@ -37,8 +40,8 @@ const Home = ({navigation}) => {
   };
   return (
     <ScrollView style={styles.container}>
-      {slider.length > 0 && <Ads data={slider} />}
-      <>
+      <Ads data={slider} />
+      <View style={styles.styling}>
         <Text style={styles.headingText}>Courses :</Text>
         <View style={styles.courseContainer}>
           <View style={styles.courses}>
@@ -57,7 +60,7 @@ const Home = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-      </>
+      </View>
       <Text style={styles.headingText}>Current Affairs & News :</Text>
       <Affairs />
     </ScrollView>
@@ -73,6 +76,7 @@ const styles = StyleSheet.create({
   },
   courseContainer: {
     flexDirection: 'row',
+    marginVertical: 20,
   },
   headingText: {
     color: THEME.COLOR_BLACK,
@@ -82,5 +86,8 @@ const styles = StyleSheet.create({
   },
   courses: {
     flex: 1,
+  },
+  styling: {
+    marginVertical: 20,
   },
 });

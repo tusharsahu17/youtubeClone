@@ -65,7 +65,7 @@ const Dashboard = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <View style={{backgroundColor: '#E0F4FF'}}>
+      {/* <View style={{backgroundColor: '#E0F4FF'}}>
         <Image
           style={{
             width: 70,
@@ -79,7 +79,7 @@ const Dashboard = ({navigation}) => {
 
         <Text style={styles.headingText}>COMPETITIVE EDUCATION CENTER</Text>
       </View>
-      <Text style={{paddingLeft: 20, paddingVertical: 10}}>All Videos:</Text>
+      <Text style={{paddingLeft: 20, paddingVertical: 10}}>All Videos:</Text> */}
       <FlatList
         data={videos}
         renderItem={({item, index}) => <Item item={item} />}
