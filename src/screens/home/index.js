@@ -32,7 +32,9 @@ const Home = ({navigation}) => {
   useEffect(() => {
     fetchSlider();
   }, []);
-
+  const handlePaidCourse = async () => {
+    navigation.navigate(ROUTES.paidCourse);
+  };
   return (
     <ScrollView style={styles.container}>
       {slider.length > 0 && <Ads data={slider} />}
@@ -40,7 +42,9 @@ const Home = ({navigation}) => {
         <Text style={styles.headingText}>Courses :</Text>
         <View style={styles.courseContainer}>
           <View style={styles.courses}>
-            <Courses title={'Paid Course'} />
+            <TouchableOpacity onPress={handlePaidCourse}>
+              <Courses title={'Paid Course'} />
+            </TouchableOpacity>
             <Courses title={'Paid Test'} />
             <Courses title={'E-Books'} />
           </View>

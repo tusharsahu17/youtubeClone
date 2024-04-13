@@ -18,4 +18,6 @@ export const ROUTES = {
   currentAffair: 'Current Affairs',
   news: 'News',
   syllabus: 'Syllabus',
+  paidCourse: 'Paid Course',
+  PaidExams: 'PaidExams',
 };

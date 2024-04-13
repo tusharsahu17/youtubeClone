@@ -31,3 +31,11 @@ export const verifyOtp = async body => {
     return formatErrorMessage(error);
   }
 };
+export const paidCourse = async () => {
+  try {
+    const {data} = await customApi.get(`/paidCourse/`);
+    return data;
+  } catch (error) {
+    return formatErrorMessage(error);
+  }
+};
