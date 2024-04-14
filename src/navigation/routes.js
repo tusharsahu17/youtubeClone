@@ -21,4 +21,5 @@ export const ROUTES = {
   paidCourse: 'Paid Course',
   paidExams: 'Paid Exams',
   paidDetails: 'Paid Details',
+  freeTest: 'Free Test',
 };

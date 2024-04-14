@@ -87,3 +87,35 @@ export const loginValidation = Yup.object().shape({
   first_name: Yup.string().required('Name is required'),
   email: Yup.string().email('Invalid email').required('email is required'),
 });
+
+export const TEST = {
+  test_name: 'Mock Test 1',
+  date: '2024-04-20',
+  duration: '2 hours',
+  questions: [
+    {
+      question_id: 1,
+      question_text: 'What is the capital of France?',
+      options: ['London', 'Paris', 'Berlin', 'Madrid'],
+      correct_answer: 'Paris',
+    },
+    {
+      question_id: 2,
+      question_text: 'What is the chemical symbol for water?',
+      options: ['H2O', 'CO2', 'O2', 'H2SO4'],
+      correct_answer: 'H2O',
+    },
+    {
+      question_id: 3,
+      question_text: 'Who wrote To Kill a Mockingbird?',
+      options: ['Harper Lee', 'Mark Twain', ' J.K. Rowling', 'Stephen King'],
+      correct_answer: 'Harper Lee',
+    },
+    {
+      question_id: 4,
+      question_text: 'What is the square root of 144?',
+      options: ['11', '12', '13', '14'],
+      correct_answer: '12',
+    },
+  ],
+};

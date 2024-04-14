@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {ourServices} from '../../services/userApi';
 import {Image} from 'react-native';
 import {THEME} from '../../utils/colors';
 import {LOGO} from '../../utils/image';
@@ -19,9 +18,7 @@ const Syllabus = () => {
   const [services, setServices] = useState([]);
   const fetchServices = async () => {
     try {
-      const res = await ourServices();
-      console.log('res:', res);
-
+      const res = await 'fsdfs';
       if (res) {
         setServices(res);
       } else {

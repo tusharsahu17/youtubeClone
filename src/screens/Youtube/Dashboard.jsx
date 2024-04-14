@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -8,14 +8,14 @@ import {
   View,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import {LOGO} from '../../utils/image';
+import {THEME} from '../../utils/colors';
 
 const Dashboard = ({navigation}) => {
-  const [playing, setPlaying] = useState(false);
-  const {width} = Dimensions.get('window');
-
   const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(false);
   // const API_URL = `https://www.googleapis.com/youtube/v3/`;
   const channelId = `UCMkyN5u59UrY8DK1ZdCXYEw`;
   const key = `AIzaSyCcFzlhJ5Lr3d_RakHMVdzGIiuylwG4Ymg`;
@@ -24,6 +24,7 @@ const Dashboard = ({navigation}) => {
   }, []);
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/playlists?key=${key}&channelId=${channelId}&part=snippet,id&maxResults=100`,
@@ -32,6 +33,7 @@ const Dashboard = ({navigation}) => {
     } catch (error) {
       console.error('Error fetching YouTube data', error);
     }
+    setLoading(false);
   };
 
   const Item = ({item}) => (
@@ -64,22 +66,12 @@ const Dashboard = ({navigation}) => {
   );
 
   return (
-    <View style={{flex: 1}}>
-      {/* <View style={{backgroundColor: '#E0F4FF'}}>
-        <Image
-          style={{
-            width: 70,
-            height: 70,
-            borderRadius: 50,
-            alignSelf: 'center',
-            marginTop: 20,
-          }}
-          source={LOGO}
-        />
-
-        <Text style={styles.headingText}>COMPETITIVE EDUCATION CENTER</Text>
-      </View>
-      <Text style={{paddingLeft: 20, paddingVertical: 10}}>All Videos:</Text> */}
+    <View>
+      {loading && (
+        <View style={{width: 100, height: 100}}>
+          <ActivityIndicator color={THEME.THEME_COLOR} size="large" />
+        </View>
+      )}
       <FlatList
         data={videos}
         renderItem={({item, index}) => <Item item={item} />}

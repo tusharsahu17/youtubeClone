@@ -38,6 +38,12 @@ const Home = ({navigation}) => {
   const handlePaidCourse = async () => {
     navigation.navigate(ROUTES.paidCourse);
   };
+  const handleFreeCourse = async () => {
+    navigation.navigate(ROUTES.youtube);
+  };
+  const handleFreeTest = async () => {
+    navigation.navigate(ROUTES.freeTest);
+  };
   return (
     <ScrollView style={styles.container}>
       <Ads data={slider} />
@@ -52,8 +58,12 @@ const Home = ({navigation}) => {
             <Courses title={'E-Books'} />
           </View>
           <View style={styles.courses}>
-            <Courses title={'Free Course'} />
-            <Courses title={'Free Test'} />
+            <TouchableOpacity onPress={handleFreeCourse}>
+              <Courses title={'Free Course'} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleFreeTest}>
+              <Courses title={'Free Test'} />
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate(ROUTES.syllabus)}>
               <Courses title={'Syllabus'} />

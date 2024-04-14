@@ -20,6 +20,7 @@ import Syllabus from '../screens/home/Syllabus';
 import PaidCourses from '../screens/MyCourse/PaidCourses';
 import PaidExams from '../screens/MyCourse/paidCourse/PaidExams';
 import PaidDetails from '../screens/MyCourse/paidCourse/PaidDetails';
+import FreeTest from '../screens/FreeTest.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,7 +40,7 @@ const StackNavigation = () => {
     headerTintColor: THEME.COLOR_WHITE,
   };
   return (
-    <Stack.Navigator initialRouteName={ROUTES.paidCourse}>
+    <Stack.Navigator>
       {!isAuthenticated ? (
         <Stack.Group>
           <Stack.Screen
@@ -49,7 +50,6 @@ const StackNavigation = () => {
               headerShown: false,
             }}
           />
-          <Stack.Screen name={ROUTES.otp} component={OTP} />
           <Stack.Screen name={ROUTES.signup} component={Signup} />
           {timer && (
             <Stack.Screen
@@ -67,13 +67,36 @@ const StackNavigation = () => {
               component={TabNavigation}
               options={{headerShown: false}}
             />
-            <Stack.Screen name={ROUTES.paidCourse} component={PaidCourses} />
-            <Stack.Screen name={ROUTES.paidDetails} component={PaidDetails} />
-            <Stack.Screen name={ROUTES.paidExams} component={PaidExams} />
-
-            <Stack.Screen name={ROUTES.playlist} component={Playlist} />
-            <Stack.Screen name={ROUTES.playVideo} component={PlayVideo} />
-            <Stack.Screen name={ROUTES.currentAffair} component={Affairs} />
+            <Stack.Screen
+              name={ROUTES.paidCourse}
+              component={PaidCourses}
+              options={option}
+            />
+            <Stack.Screen
+              name={ROUTES.paidDetails}
+              component={PaidDetails}
+              options={option}
+            />
+            <Stack.Screen
+              name={ROUTES.paidExams}
+              component={PaidExams}
+              options={option}
+            />
+            <Stack.Screen
+              name={ROUTES.playlist}
+              component={Playlist}
+              options={option}
+            />
+            <Stack.Screen
+              name={ROUTES.playVideo}
+              component={PlayVideo}
+              options={option}
+            />
+            <Stack.Screen
+              name={ROUTES.currentAffair}
+              component={Affairs}
+              options={option}
+            />
             <Stack.Screen
               name={ROUTES.news}
               component={News}
@@ -92,6 +115,11 @@ const StackNavigation = () => {
             <Stack.Screen
               name={ROUTES.syllabus}
               component={Syllabus}
+              options={option}
+            />
+            <Stack.Screen
+              name={ROUTES.freeTest}
+              component={FreeTest}
               options={option}
             />
           </>
