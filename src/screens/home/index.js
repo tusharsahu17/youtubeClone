@@ -13,7 +13,7 @@ import {THEME} from '../../utils/colors';
 import Affairs from '../Affairs';
 import {ROUTES} from '../../navigation/routes';
 import {ADS} from '../../utils/DataKey';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
 const Home = ({navigation}) => {
   const [slider, setSlider] = useState([]);
   useEffect(() => {
@@ -52,21 +52,41 @@ const Home = ({navigation}) => {
         <View style={styles.courseContainer}>
           <View style={styles.courses}>
             <TouchableOpacity onPress={handlePaidCourse}>
-              <Courses title={'Paid Course'} />
+              <Courses
+                title={'Paid Course'}
+                bgColor={'#007F73'}
+                icon={'windows'}
+              />
             </TouchableOpacity>
-            <Courses title={'Paid Test'} />
-            <Courses title={'E-Books'} />
+            <Courses
+              title={'Paid Test'}
+              bgColor={'#86B6F6'}
+              icon={'switcher'}
+            />
+            <Courses
+              title={'E-Books'}
+              bgColor={'#4CCD99'}
+              icon={'CodeSandbox'}
+            />
           </View>
           <View style={styles.courses}>
             <TouchableOpacity onPress={handleFreeCourse}>
-              <Courses title={'Free Course'} />
+              <Courses title={'Free Course'} bgColor={'red'} icon={'youtube'} />
             </TouchableOpacity>
             <TouchableOpacity onPress={handleFreeTest}>
-              <Courses title={'Free Test'} />
+              <Courses
+                title={'Free Test'}
+                bgColor={THEME.COLOR_BLUE}
+                icon={'videocamera'}
+              />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate(ROUTES.syllabus)}>
-              <Courses title={'Syllabus'} />
+              <Courses
+                title={'Syllabus'}
+                bgColor={'#BAD1C2'}
+                icon={'profile'}
+              />
             </TouchableOpacity>
           </View>
         </View>

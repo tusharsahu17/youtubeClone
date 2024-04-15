@@ -66,7 +66,7 @@ const Dashboard = ({navigation}) => {
   );
 
   return (
-    <View>
+    <View style={{backgroundColor: THEME.COLOR_WHITE}}>
       {loading && (
         <View style={{width: 100, height: 100}}>
           <ActivityIndicator color={THEME.THEME_COLOR} size="large" />

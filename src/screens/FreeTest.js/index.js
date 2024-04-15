@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, Pressable, Alert, StyleSheet} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {TEST} from '../../utils/DataKey';
 import {THEME} from '../../utils/colors';
 
@@ -14,7 +15,7 @@ const FreeTest = () => {
     setCurrentQuestionIndex(prevIndex =>
       prevIndex < TEST.questions.length - 1 ? prevIndex + 1 : prevIndex,
     );
-    setSelectedOption(null); // Reset selected option when moving to the next question
+    setSelectedOption(null);
   };
 
   const handlePrev = () => {
@@ -66,7 +67,12 @@ const FreeTest = () => {
   return (
     <View style={styles.container}>
       <View style={styles.questionContainer}>
-        <Text style={styles.questionText}>{currentQuestion.question_text}</Text>
+        <Text style={styles.questionNumber}>
+          Question: {currentQuestionIndex + 1}/{TEST.questions.length}
+        </Text>
+        <Text style={styles.questionText}>
+          Q{currentQuestionIndex + 1}. {currentQuestion.question_text}
+        </Text>
         {currentQuestion.options.map((option, index) => (
           <View key={index} style={styles.optionContainer}>
             <Pressable
@@ -77,12 +83,21 @@ const FreeTest = () => {
                     selectedOption === option
                       ? THEME.COLOR_BLUE
                       : 'transparent',
+                  borderColor:
+                    selectedOption === option ? THEME.COLOR_BLUE : '#ccc',
                 },
-                {borderWidth: 0.2},
               ]}
               onPress={() => handleAnswer(option)}
               disabled={submitted}>
-              <Text>{option}</Text>
+              <Text
+                style={{
+                  color:
+                    selectedOption === option
+                      ? THEME.COLOR_WHITE
+                      : THEME.COLOR_BLACK,
+                }}>
+                {String.fromCharCode(97 + index)}. {option}
+              </Text>
             </Pressable>
           </View>
         ))}
@@ -98,6 +113,13 @@ const FreeTest = () => {
           onPress={handlePrev}
           disabled={currentQuestionIndex === 0 || submitted}>
           <Text style={[styles.buyNowText, {color: THEME.COLOR_WHITE}]}>
+            <AntDesign
+              style={{
+                color: THEME.COLOR_WHITE,
+                fontSize: 15,
+              }}
+              name="left"
+            />
             Previous
           </Text>
         </Pressable>
@@ -123,6 +145,13 @@ const FreeTest = () => {
           disabled={submitted}>
           <Text style={[styles.buyNowText, {color: THEME.COLOR_WHITE}]}>
             Next
+            <AntDesign
+              style={{
+                color: THEME.COLOR_WHITE,
+                fontSize: 15,
+              }}
+              name="right"
+            />
           </Text>
         </Pressable>
       </View>
@@ -144,19 +173,27 @@ const FreeTest = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 20,
+    margin: 10,
+    marginTop: 0,
   },
   questionContainer: {
     marginBottom: 20,
     padding: 20,
-    borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 10,
+  },
+  questionNumber: {
+    alignSelf: 'flex-end',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: THEME.COLOR_BLACK,
   },
   questionText: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: THEME.COLOR_BLACK,
   },
   optionContainer: {
     marginBottom: 10,
@@ -164,6 +201,7 @@ const styles = StyleSheet.create({
   optionButton: {
     padding: 10,
     borderRadius: 5,
+    borderWidth: 1,
   },
   buttonContainer: {
     flexDirection: 'row',
