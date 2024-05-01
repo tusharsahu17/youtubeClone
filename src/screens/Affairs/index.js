@@ -13,6 +13,7 @@ import {DOMAIN_URL} from '../../utils/constants';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {ROUTES} from '../../navigation/routes';
 import {CURRENT_AFFAIRS} from '../../utils/DataKey';
+import {getCurrentAffairs} from '../../services/userApi';
 
 const Affairs = () => {
   const {width} = useWindowDimensions();
@@ -22,34 +23,34 @@ const Affairs = () => {
   const data = CURRENT_AFFAIRS;
   useEffect(() => {
     fetchCurrentAffairs();
-    setCurrentAffairs(CURRENT_AFFAIRS);
+    // setCurrentAffairs(CURRENT_AFFAIRS);
   }, [isFocused]);
   const fetchCurrentAffairs = async () => {
-    // const res = await getBlogs();
-    // if (res) {
-    //   setCurrentAffairs(res.results);
-    // } else {
-    //   console.log('err', res?.message);
-    // }
+    const res = await getCurrentAffairs();
+    console.log(res);
+    if (res.status) {
+      setCurrentAffairs(res.data);
+    } else {
+      console.log('err', res?.message);
+    }
   };
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
-        style={[
-          styles.card,
-          {
-            maxWidth: width - 50,
-          },
-        ]}
+        style={[styles.card]}
         onPress={() => navigation.navigate(ROUTES.news, {item})}>
-        <Image style={styles.cardImage} source={{uri: `${item.image}`}} />
+        {console.log('------------------->', `${DOMAIN_URL}${item.image}`)}
+        <Image
+          style={styles.cardImage}
+          source={{uri: `${DOMAIN_URL}${item.image}`}}
+        />
         <View style={styles.cardHeader}>
           <View>
             <Text style={styles.title} numberOfLines={2}>
               {item.title}
             </Text>
             <Text style={styles.description} numberOfLines={7}>
-              {item.content}
+              {item.description}
             </Text>
           </View>
         </View>
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.COLOR_WHITE,
     borderRadius: 10,
     marginRight: 20,
+    width: 300,
     elevation: 5,
   },
   cardHeader: {

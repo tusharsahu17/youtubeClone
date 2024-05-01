@@ -39,3 +39,12 @@ export const paidCourse = async () => {
     return formatErrorMessage(error);
   }
 };
+export const getCurrentAffairs = async () => {
+  try {
+    const {data} = await customApi.get(`/news`);
+    console.log(data);
+    return data;
+  } catch (error) {
+    return formatErrorMessage(error);
+  }
+};
