@@ -1,168 +1,181 @@
-import React, {useState} from 'react';
-import {View, Text, Pressable, Alert, StyleSheet} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Pressable, Alert, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {TEST} from '../../utils/DataKey';
-import {THEME} from '../../utils/colors';
-
+import { THEME } from '../../utils/colors';
+import { getFreeTest } from '../../services/userApi';
 const FreeTest = () => {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null);
-
+  const [test, setTest] = useState({ currentPage: 1, totalPages: 0, questions: [] });
+  const [pageNo, setPageNo] = useState(1);
+  const [loader, setLoader] = useState(false)
+  const [correctAnswers, setCorrectAnswers] = useState([])
   const handleNext = () => {
-    setCurrentQuestionIndex(prevIndex =>
-      prevIndex < TEST.questions.length - 1 ? prevIndex + 1 : prevIndex,
-    );
-    setSelectedOption(null);
+    if (pageNo < test.totalPages) {
+      setPageNo(pageNo + 1);
+    }
   };
 
   const handlePrev = () => {
-    setCurrentQuestionIndex(prevIndex =>
-      prevIndex > 0 ? prevIndex - 1 : prevIndex,
-    );
-    setSelectedOption(null); // Reset selected option when moving to the previous question
-  };
-
-  const handleAnswer = option => {
-    const newAnswers = [...answers];
-    const currentQuestion = TEST.questions[currentQuestionIndex];
-    const answerIndex = newAnswers.findIndex(
-      ans => ans.question_id === currentQuestion.question_id,
-    );
-    if (answerIndex !== -1) {
-      newAnswers[answerIndex].selected_option = option;
-    } else {
-      newAnswers.push({
-        question_id: currentQuestion.question_id,
-        selected_option: option,
-      });
+    if (pageNo > 1) {
+      setPageNo(pageNo - 1);
     }
-    setAnswers(newAnswers);
-    setSelectedOption(option); // Set the selected option
   };
-
+  const handleAnswer = (questionId, option, correctOption) => {
+    const newAnswers = {
+      ...answers,
+      [questionId]: option
+    };
+    const correct = {
+      ...correctAnswers,
+      [questionId]: correctOption
+    };
+    setAnswers(newAnswers);
+    setCorrectAnswers(correct)
+  };
+  
   const handleSubmit = () => {
     setSubmitted(true);
     let totalScore = 0;
-    answers.forEach(answer => {
-      const question = TEST.questions.find(
-        q => q.question_id === answer.question_id,
-      );
-      if (question.correct_answer === answer.selected_option) {
-        totalScore += 1;
-      }
+
+    // Assuming `answers` is the user's selected answers object
+    // and `correctAnswers` is the provided correct answers object
+  
+    Object.entries(answers).forEach(([questionId, selectedOption]) => {
+        const correctAnswer = correctAnswers[questionId];
+        if (correctAnswer && correctAnswer === selectedOption) {
+            totalScore += 1;
+        }
     });
     setScore(totalScore);
     Alert.alert(
-      'Test Submitted',
-      `Your score is ${totalScore} out of ${TEST.questions.length}`,
-      answers,
+        'Test Submitted',
+        `Your score is ${totalScore} out of ${Object.keys(correctAnswers).length}`,
     );
+};
+  const getTest = async () => {
+    setLoader(true)
+    const response = await getFreeTest(pageNo);
+    if (response.status) {
+      setTest({
+        currentPage: response.currentPage,
+        totalPages: response.totalPages,
+        questions: response.data,
+      });
+    }
+    setLoader(false)
   };
 
-  const currentQuestion = TEST.questions[currentQuestionIndex];
 
-  return (
-    <View style={styles.container}>
+  useEffect(() => {
+    getTest();
+  }, [pageNo]);
+
+  useEffect(() => {
+    if (test.questions.length && pageNo > test.totalPages) {
+      setPageNo(1);
+    }
+  }, [test, pageNo, answers]);
+
+  const renderItem = ({ item }) => {
+    if (!item) return null; // Check to ensure the item is not undefined
+    return (
       <View style={styles.questionContainer}>
         <Text style={styles.questionNumber}>
-          Question: {currentQuestionIndex + 1}/{TEST.questions.length}
+          Question: {pageNo}/{test.totalPages}
         </Text>
         <Text style={styles.questionText}>
-          Q{currentQuestionIndex + 1}. {currentQuestion.question_text}
+          Q{pageNo}. {item.question}
         </Text>
-        {currentQuestion.options.map((option, index) => (
-          <View key={index} style={styles.optionContainer}>
+        {Object.entries(item.options).map(([key, option], optionIndex) => (
+          <View key={key} style={styles.optionContainer}>
             <Pressable
-              style={({pressed}) => [
+              style={({ pressed }) => [
                 styles.optionButton,
                 {
-                  backgroundColor:
-                    selectedOption === option
-                      ? THEME.COLOR_BLUE
-                      : 'transparent',
-                  borderColor:
-                    selectedOption === option ? THEME.COLOR_BLUE : '#ccc',
-                },
+                  backgroundColor: answers[item._id] === key ? THEME.COLOR_BLUE : 'transparent',
+                  borderColor: answers[item._id] === key ? THEME.COLOR_BLUE : '#ccc',
+                }
               ]}
-              onPress={() => handleAnswer(option)}
+              onPress={() => handleAnswer(item._id, key,item.answer)}
               disabled={submitted}>
               <Text
                 style={{
-                  color:
-                    selectedOption === option
-                      ? THEME.COLOR_WHITE
-                      : THEME.COLOR_BLACK,
+                  color: answers[item._id] === key ? THEME.COLOR_WHITE : THEME.COLOR_BLACK,
                 }}>
-                {String.fromCharCode(97 + index)}. {option}
+                {String.fromCharCode(97 + optionIndex)}. {option}
               </Text>
             </Pressable>
           </View>
         ))}
       </View>
+    );
+  };
+  return (
+    <View style={styles.container}>
+      {loader ?
+        <View style={styles.loaders}>
+          <ActivityIndicator size="large" color={THEME.COLOR_BLUE} />
+        </View> :
+        <FlatList
+          data={test.questions}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => item._id}
+        />}
       <View style={styles.buttonContainer}>
         <Pressable
-          style={({pressed}) => [
+          style={({ pressed }) => [
             styles.buyNow,
             {
-              backgroundColor: pressed ? THEME.COLOR_BORDER : THEME.COLOR_BLUE,
+              backgroundColor: pressed ? THEME.COLOR_BORDER :
+                (test.currentPage === 1 ? THEME.COLOR_GRAY : THEME.COLOR_BLUE),
             },
           ]}
           onPress={handlePrev}
-          disabled={currentQuestionIndex === 0 || submitted}>
-          <Text style={[styles.buyNowText, {color: THEME.COLOR_WHITE}]}>
+          disabled={test.currentPage === 1 || submitted}>
+          <Text style={[styles.buyNowText, { color: THEME.COLOR_WHITE }]}>
             <AntDesign
+              name="left"
               style={{
                 color: THEME.COLOR_WHITE,
                 fontSize: 15,
               }}
-              name="left"
             />
             Previous
           </Text>
         </Pressable>
         <Pressable
-          style={({pressed}) => [
+          style={({ pressed }) => [
             styles.buyNow,
             {
-              backgroundColor: pressed ? THEME.COLOR_BORDER : THEME.COLOR_BLUE,
+              backgroundColor: pressed ? THEME.COLOR_BORDER :
+                (test.currentPage === test.totalPages ? THEME.COLOR_GRAY : THEME.COLOR_BLUE),
               width: 100,
             },
-            {
-              backgroundColor:
-                currentQuestionIndex === TEST.questions.length - 1
-                  ? THEME.COLOR_GRAY
-                  : THEME.COLOR_BLUE,
-            },
           ]}
-          onPress={
-            currentQuestionIndex === TEST.questions.length - 1
-              ? null
-              : handleNext
-          }
-          disabled={submitted}>
-          <Text style={[styles.buyNowText, {color: THEME.COLOR_WHITE}]}>
+          onPress={handleNext}
+          disabled={test.currentPage === test.totalPages || submitted}>
+          <Text style={[styles.buyNowText, { color: THEME.COLOR_WHITE }]}>
             Next
             <AntDesign
+              name="right"
               style={{
                 color: THEME.COLOR_WHITE,
                 fontSize: 15,
               }}
-              name="right"
             />
           </Text>
         </Pressable>
       </View>
       <Pressable
-        style={({pressed}) => [
+        style={({ pressed }) => [
           styles.submitButton,
-          {backgroundColor: pressed ? THEME.COLOR_BORDER : THEME.COLOR_BLUE},
+          { backgroundColor: pressed ? THEME.COLOR_BORDER : THEME.COLOR_BLUE },
         ]}
         onPress={handleSubmit}
         disabled={submitted}>
-        <Text style={[styles.submitButtonText, {color: THEME.COLOR_WHITE}]}>
+        <Text style={[styles.submitButtonText, { color: THEME.COLOR_WHITE }]}>
           Submit
         </Text>
       </Pressable>
@@ -177,6 +190,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   questionContainer: {
+    marginHorizontal: 10,
     marginBottom: 20,
     padding: 20,
     borderColor: '#ccc',
@@ -226,7 +240,12 @@ const styles = StyleSheet.create({
   submitButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
-  },
-});
 
-export default FreeTest;
+  },
+  loaders: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
+export default FreeTest

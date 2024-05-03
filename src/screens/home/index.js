@@ -6,15 +6,15 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Courses from '../../components/Courses';
 import Ads from '../../components/Ads';
-import {THEME} from '../../utils/colors';
+import { THEME } from '../../utils/colors';
 import Affairs from '../Affairs';
-import {ROUTES} from '../../navigation/routes';
-import {ADS} from '../../utils/DataKey';
+import { ROUTES } from '../../navigation/routes';
+import { ADS } from '../../utils/DataKey';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   const [slider, setSlider] = useState([]);
   useEffect(() => {
     setSlider(ADS);
@@ -38,6 +38,9 @@ const Home = ({navigation}) => {
   const handlePaidCourse = async () => {
     navigation.navigate(ROUTES.paidCourse);
   };
+  const handlePaidTest = async () => {
+    navigation.navigate(ROUTES.paidTestSeries);
+  };
   const handleFreeCourse = async () => {
     navigation.navigate(ROUTES.youtube);
   };
@@ -58,11 +61,13 @@ const Home = ({navigation}) => {
                 icon={'windows'}
               />
             </TouchableOpacity>
-            <Courses
-              title={'Paid Test'}
-              bgColor={'#86B6F6'}
-              icon={'switcher'}
-            />
+            <TouchableOpacity onPress={handlePaidTest}>
+              <Courses
+                title={'Paid Test'}
+                bgColor={'#86B6F6'}
+                icon={'switcher'}
+              />
+            </TouchableOpacity>
             <Courses
               title={'E-Books'}
               bgColor={'#4CCD99'}

@@ -16,7 +16,7 @@ export const THEME = {
   COLOR_BORDER: '#87cbcc',
 
   ///////////////////
-  FONT_SIZE_SMALL: 12,
+  FONT_SIZE_SMALL: 13,
   FONT_SIZE_MEDIUM: 16,
   FONT_SIZE_LARGE: 20,
   FONT_WEIGHT_LIGHT: '500',

@@ -27,7 +27,6 @@ const Affairs = () => {
   }, [isFocused]);
   const fetchCurrentAffairs = async () => {
     const res = await getCurrentAffairs();
-    console.log(res);
     if (res.status) {
       setCurrentAffairs(res.data);
     } else {
@@ -39,7 +38,6 @@ const Affairs = () => {
       <TouchableOpacity
         style={[styles.card]}
         onPress={() => navigation.navigate(ROUTES.news, {item})}>
-        {console.log('------------------->', `${DOMAIN_URL}${item.image}`)}
         <Image
           style={styles.cardImage}
           source={{uri: `${DOMAIN_URL}${item.image}`}}

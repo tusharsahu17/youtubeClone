@@ -1,4 +1,4 @@
-const HOST = 'magnificent-erin-abalone.cyclic.app';
-export const DOMAIN_URL = `https://${HOST}`;
-// const HOST = '192.168.1.41:8000';
+// const HOST = 'magnificent-erin-abalone.cyclic.app';
+const HOST = '192.168.1.34:8000';
+export const DOMAIN_URL = `http://${HOST}`;
 // https://magnificent-erin-abalone.cyclic.app

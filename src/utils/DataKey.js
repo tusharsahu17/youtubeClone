@@ -1,12 +1,12 @@
 import * as Yup from 'yup';
-import {LOGO} from './image';
+import { LOGO } from './image';
 
 //HOME SCREEN
-
+export const INTERNET_CHARGE = 20
 export const ADS = [
-  {id: 1, image: 'https://reqres.in/img/faces/1-image.jpg'},
-  {id: 2, image: 'https://reqres.in/img/faces/2-image.jpg'},
-  {id: 3, image: 'https://reqres.in/img/faces/3-image.jpg'},
+  { id: 1, image: 'https://reqres.in/img/faces/1-image.jpg' },
+  { id: 2, image: 'https://reqres.in/img/faces/2-image.jpg' },
+  { id: 3, image: 'https://reqres.in/img/faces/3-image.jpg' },
 ];
 export const CURRENT_AFFAIRS = [
   {
