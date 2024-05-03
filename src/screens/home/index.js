@@ -17,9 +17,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {getSliderImages} from '../../services/userApi';
 const Home = ({navigation}) => {
   const [slider, setSlider] = useState([]);
-  useEffect(() => {
-    setSlider(ADS);
-  }, []);
   const fetchSlider = async () => {
     try {
       const res = await getSliderImages();
