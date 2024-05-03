@@ -6,30 +6,31 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Courses from '../../components/Courses';
 import Ads from '../../components/Ads';
-import { THEME } from '../../utils/colors';
+import {THEME} from '../../utils/colors';
 import Affairs from '../Affairs';
-import { ROUTES } from '../../navigation/routes';
-import { ADS } from '../../utils/DataKey';
+import {ROUTES} from '../../navigation/routes';
+import {ADS} from '../../utils/DataKey';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-const Home = ({ navigation }) => {
+import {getSliderImages} from '../../services/userApi';
+const Home = ({navigation}) => {
   const [slider, setSlider] = useState([]);
   useEffect(() => {
     setSlider(ADS);
   }, []);
   const fetchSlider = async () => {
-    // try {
-    //   const res = await getSliderImages();
-    //   if (res) {
-    //     setSlider(res);
-    //   } else {
-    //     setSlider([]);
-    //   }
-    // } catch (error) {
-    //   console.error('Error fetching data:', error);
-    // }
+    try {
+      const res = await getSliderImages();
+      if (res.status) {
+        setSlider(res.data);
+      } else {
+        setSlider([]);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   useEffect(() => {
@@ -57,31 +58,40 @@ const Home = ({ navigation }) => {
             <TouchableOpacity onPress={handlePaidCourse}>
               <Courses
                 title={'Paid Course'}
-                bgColor={'#007F73'}
+                bgColor1={'#BCE7FC'}
+                bgColor2={'#5CA9E9'}
                 icon={'windows'}
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={handlePaidTest}>
               <Courses
                 title={'Paid Test'}
-                bgColor={'#86B6F6'}
+                bgColor1={'#F7DBA7'}
+                bgColor2={'#F0AB86'}
                 icon={'switcher'}
               />
             </TouchableOpacity>
             <Courses
               title={'E-Books'}
-              bgColor={'#4CCD99'}
+              bgColor1={'#4CCD99'}
+              bgColor2={'#007F73'}
               icon={'CodeSandbox'}
             />
           </View>
           <View style={styles.courses}>
             <TouchableOpacity onPress={handleFreeCourse}>
-              <Courses title={'Free Course'} bgColor={'red'} icon={'youtube'} />
+              <Courses
+                title={'Free Course'}
+                bgColor2={'#ed4264'}
+                bgColor1={'#ff7e5f'}
+                icon={'youtube'}
+              />
             </TouchableOpacity>
             <TouchableOpacity onPress={handleFreeTest}>
               <Courses
                 title={'Free Test'}
-                bgColor={THEME.COLOR_BLUE}
+                bgColor1={'#DA3068'}
+                bgColor2={'#14469F'}
                 icon={'videocamera'}
               />
             </TouchableOpacity>
@@ -89,7 +99,8 @@ const Home = ({ navigation }) => {
               onPress={() => navigation.navigate(ROUTES.syllabus)}>
               <Courses
                 title={'Syllabus'}
-                bgColor={'#BAD1C2'}
+                bgColor1={'#31B7C2'}
+                bgColor2={'#7BC393'}
                 icon={'profile'}
               />
             </TouchableOpacity>

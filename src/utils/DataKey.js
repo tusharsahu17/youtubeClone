@@ -1,31 +1,8 @@
 import * as Yup from 'yup';
-import { LOGO } from './image';
+import {LOGO} from './image';
 
 //HOME SCREEN
-export const INTERNET_CHARGE = 20
-export const ADS = [
-  { id: 1, image: 'https://reqres.in/img/faces/1-image.jpg' },
-  { id: 2, image: 'https://reqres.in/img/faces/2-image.jpg' },
-  { id: 3, image: 'https://reqres.in/img/faces/3-image.jpg' },
-];
-export const CURRENT_AFFAIRS = [
-  {
-    image: 'https://reqres.in/img/faces/1-image.jpg',
-    title: 'New Coaching Launching',
-    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl, at luctus odio consectetur sit amet. Fusce fermentum libero quis magna feugiat, non gravida nulla dignissim. Integer vel enim sed odio fermentum laoreet. Duis ut nulla vel odio malesuada lobortis vel eu dui. Sed nec mauris sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl, at luctus odio consectetur sit amet. Fusce fermentum libero quis magna feugiat, non gravida nulla dignissim. Integer vel enim sed odio fermentum laoreet.
-    Duis ut nulla vel odio malesuada lobortis vel eu dui. Sed nec mauris sem.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl, at luctus odio consectetur sit amet. Fusce fermentum libero quis magna feugiat, non gravida nulla dignissim. Integer vel enim sed odio fermentum laoreet. Duis ut nulla vel odio malesuada lobortis vel eu dui. Sed nec mauris sem.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl, at luctus odio consectetur sit amet. Fusce fermentum libero quis magna feugiat, non gravida nulla dignissim. Integer vel enim sed odio fermentum laoreet. Duis ut nulla vel odio malesuada lobortis vel eu dui. Sed nec mauris sem.`,
-  },
-  {
-    image: 'https://reqres.in/img/faces/2-image.jpg',
-    title: 'To keep ReqRes free',
-    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl,Sed nec mauris sem. `,
-  },
-  {
-    image: 'https://reqres.in/img/faces/3-image.jpg',
-    title: 'contributions towards server costs are appreciated',
-    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus nulla. Nullam non urna nec ex pharetra ultricies. Sed sit amet bibendum libero. Sed mattis efficitur nisl, at luctus odio consectetur sit amet. Fusce fermentum libero quis magna feugiat, non gravida nulla dignissim. Integer vel enim sed odio fermentum laoreet. Duis ut nulla vel odio malesuada lobortis vel eu dui. Sed nec mauris sem. `,
-  },
-];
+export const INTERNET_CHARGE = 20;
 
 // PAID COURSE
 export const PAID_COURSE = [

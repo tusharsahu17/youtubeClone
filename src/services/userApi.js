@@ -1,7 +1,7 @@
 import Axios from 'axios';
-import { DOMAIN_URL } from '../utils/constants';
+import {DOMAIN_URL} from '../utils/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { formatErrorMessage } from '../utils/formatter';
+import {formatErrorMessage} from '../utils/formatter';
 
 const customApi = Axios.create({
   baseURL: `${DOMAIN_URL}`,
@@ -17,7 +17,7 @@ customApi.interceptors.request.use(async config => {
 
 export const login = async body => {
   try {
-    const { data } = await customApi.post(`/users/login`, body);
+    const {data} = await customApi.post(`/users/login`, body);
     return data;
   } catch (error) {
     return formatErrorMessage(error);
@@ -25,7 +25,7 @@ export const login = async body => {
 };
 export const verifyOtp = async body => {
   try {
-    const { data } = await customApi.post(`/patient_login/verify_otp/`, body);
+    const {data} = await customApi.post(`/patient_login/verify_otp/`, body);
     return data;
   } catch (error) {
     return formatErrorMessage(error);
@@ -33,15 +33,15 @@ export const verifyOtp = async body => {
 };
 export const paidCourse = async () => {
   try {
-    const { data } = await customApi.get(`/paidCourse/`);
+    const {data} = await customApi.get(`/paidCourse/`);
     return data;
   } catch (error) {
     return formatErrorMessage(error);
   }
 };
-export const getFreeTest = async (pageNo) => {
+export const getFreeTest = async pageNo => {
   try {
-    const { data } = await customApi.get(`/question?page=${pageNo}&limit=1`);
+    const {data} = await customApi.get(`/question?page=${pageNo}&limit=1`);
     return data;
   } catch (error) {
     return formatErrorMessage(error);
@@ -58,6 +58,14 @@ export const getCurrentAffairs = async () => {
 export const getPaidTests = async () => {
   try {
     const {data} = await customApi.get(`/paid-test-series/testseries`);
+    return data;
+  } catch (error) {
+    return formatErrorMessage(error);
+  }
+};
+export const getSliderImages = async () => {
+  try {
+    const {data} = await customApi.get(`/slider`);
     return data;
   } catch (error) {
     return formatErrorMessage(error);
