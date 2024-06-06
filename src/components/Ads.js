@@ -25,8 +25,8 @@ const Ads = ({data}) => {
       <Carousel
         data={data}
         renderItem={renderItem}
-        sliderWidth={300}
-        itemWidth={300}
+        sliderWidth={350}
+        itemWidth={400}
         layout={'default'}
         loop
         autoplay

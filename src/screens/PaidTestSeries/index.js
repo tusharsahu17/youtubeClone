@@ -17,6 +17,8 @@ import SubmitButton from '../../components/SubmitButton';
 import {INTERNET_CHARGE} from '../../utils/DataKey';
 import {DOMAIN_URL} from '../../utils/constants';
 import WebView from 'react-native-webview';
+import {useSelector} from 'react-redux';
+import {selectUser} from '../../features/auth/authSlice';
 
 const PaidTestSeries = () => {
   const [testData, setTestData] = useState([]);
@@ -26,9 +28,10 @@ const PaidTestSeries = () => {
 
   const [viewHtml, setViewHtml] = useState(false);
   const webViewRef = useRef(null);
-  const user = '6648448c7d72455fc888b47a';
+  const {user} = useSelector(selectUser);
+  const {userId} = user;
+  // const user = '6648448c7d72455fc888b47a';
   const courseId = selectedItem._id;
-
   const navigateState = async navState => {
     if (navState?.url?.includes('payment/validate')) {
       const {data} = await axios.get(`${navState?.url}`);
@@ -95,14 +98,10 @@ const PaidTestSeries = () => {
           style={{
             flex: 1,
           }}>
-          {console.log(
-            '================================>',
-            `${DOMAIN_URL}/payments/pay-testseries/${user}/${courseId}/`,
-          )}
           <WebView
             ref={webViewRef}
             source={{
-              uri: `${DOMAIN_URL}/payments/pay-testseries/${user}/${courseId}/`,
+              uri: `${DOMAIN_URL}/payments/pay-testseries/${userId}/${courseId}/`,
             }}
             originWhitelist={['*']}
             scalesPageToFit={false}

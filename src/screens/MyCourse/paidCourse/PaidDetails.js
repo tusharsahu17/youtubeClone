@@ -23,9 +23,6 @@ const PaidDetails = ({navigation, route}) => {
       title: details?.title,
     });
   }, [navigation]);
-  useEffect(() => {
-    console.log(coupons);
-  }, [coupons]);
   const handleCoupons = () => {
     console.log('Apply Coupons', coupons);
   };

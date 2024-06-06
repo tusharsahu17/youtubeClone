@@ -50,7 +50,6 @@ const Signup = ({navigation}) => {
       otp: otp,
     };
     const res = await verifyOTP(payload);
-    console.log('===============>', res);
     if (res.status) {
       ToastAndroid.show(res?.message, ToastAndroid.SHORT);
       setMobileVerified(true);

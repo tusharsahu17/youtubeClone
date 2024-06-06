@@ -13,7 +13,6 @@ import {ROUTES} from '../../navigation/routes';
 
 const News = ({navigation, route}) => {
   const details = route?.params?.item;
-  console.log(details);
   useLayoutEffect(() => {
     navigation.setOptions({
       title: details?.title,
@@ -27,20 +26,23 @@ const News = ({navigation, route}) => {
         paddingTop: 10,
         backgroundColor: THEME.COLOR_WHITE,
       }}>
+      {console.log(`${DOMAIN_URL}/media${route.params.item.image}`)}
       <Image
         style={styles.cardImage}
-        source={{
-          uri: `${details?.image}`,
-
-          // uri: `${DOMAIN_URL}/media/${route.params.item.featured_image}`,
-        }}
+        source={{uri: `${DOMAIN_URL}${route.params.item.image}`}}
+        // source={{
+        //   uri: `${details?.image}`,
+        //   // uri: `${DOMAIN_URL}/media/${route.params.item.featured_image}`,
+        // }}
       />
 
       <ScrollView style={styles.cardHeader}>
         <Text style={styles.title} numberOfLines={2}>
           {route?.params?.item?.title}
         </Text>
-        <Text style={styles.description}>{route?.params?.item?.content}</Text>
+        <Text style={styles.description}>
+          {route?.params?.item?.description}
+        </Text>
       </ScrollView>
     </ScrollView>
   );
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
   cardImage: {
     height: 300,
     marginHorizontal: 10,
-    resizeMode: 'stretch',
+    resizeMode: 'contain',
   },
   title: {
     fontSize: 18,

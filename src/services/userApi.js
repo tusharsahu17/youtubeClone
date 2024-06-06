@@ -86,7 +86,6 @@ export const takeTest = async ({testId, page}) => {
 export const getSliderImages = async () => {
   try {
     const {data} = await customApi.get(`/slider/`);
-    console.log('------------>', data);
     return data;
   } catch (error) {
     return formatErrorMessage(error);

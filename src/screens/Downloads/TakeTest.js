@@ -1,15 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Pressable, Alert, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  Pressable,
+  Alert,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { THEME } from '../../utils/colors';
-import { takeTest } from '../../services/userApi'; // Adjust the import according to your project structure
+import {THEME} from '../../utils/colors';
+import {takeTest} from '../../services/userApi'; // Adjust the import according to your project structure
 
 const TakeTest = ({navigation, route}) => {
   const testId = route?.params?.data;
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
-  const [test, setTest] = useState({ currentPage: 1, totalPages: 0, questions: [] });
+  const [test, setTest] = useState({
+    currentPage: 1,
+    totalPages: 0,
+    questions: [],
+  });
   const [pageNo, setPageNo] = useState(1);
   const [loader, setLoader] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState({});
@@ -29,11 +41,11 @@ const TakeTest = ({navigation, route}) => {
   const handleAnswer = (questionId, option, correctOption) => {
     setAnswers(prevAnswers => ({
       ...prevAnswers,
-      [questionId]: option
+      [questionId]: option,
     }));
     setCorrectAnswers(prevCorrectAnswers => ({
       ...prevCorrectAnswers,
-      [questionId]: correctOption
+      [questionId]: correctOption,
     }));
   };
 
@@ -50,14 +62,15 @@ const TakeTest = ({navigation, route}) => {
     setScore(totalScore);
     Alert.alert(
       'Test Submitted',
-      `Your score is ${totalScore} out of ${Object.keys(correctAnswers).length}`
+      `Your score is ${totalScore} out of ${
+        Object.keys(correctAnswers).length
+      }`,
     );
   };
 
   const getTest = async () => {
     setLoader(true);
-    const response = await takeTest({ testId, page: pageNo });
-    console.log('===========================>', response);
+    const response = await takeTest({testId, page: pageNo});
     if (response.status) {
       setTest({
         currentPage: response.page,
@@ -78,7 +91,7 @@ const TakeTest = ({navigation, route}) => {
     }
   }, [test, pageNo, answers]);
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({item}) => {
     if (!item) return null;
     return (
       <View style={styles.questionContainer}>
@@ -89,20 +102,31 @@ const TakeTest = ({navigation, route}) => {
           Q{pageNo}. {item.question}
         </Text>
         {item.options.map((option, optionIndex) => (
-          <View key={option.option} style={styles.optionContainer}> 
+          <View key={option.option} style={styles.optionContainer}>
             <Pressable
-              style={({ pressed }) => [
+              style={({pressed}) => [
                 styles.optionButton,
                 {
-                  backgroundColor: answers[item._id] === option.option ? THEME.COLOR_BLUE : 'transparent',
-                  borderColor: answers[item._id] === option.option ? THEME.COLOR_BLUE : '#ccc',
-                }
+                  backgroundColor:
+                    answers[item._id] === option.option
+                      ? THEME.COLOR_BLUE
+                      : 'transparent',
+                  borderColor:
+                    answers[item._id] === option.option
+                      ? THEME.COLOR_BLUE
+                      : '#ccc',
+                },
               ]}
-              onPress={() => handleAnswer(item._id, option.option, item.correctAnswer)}
+              onPress={() =>
+                handleAnswer(item._id, option.option, item.correctAnswer)
+              }
               disabled={submitted}>
               <Text
                 style={{
-                  color: answers[item._id] === option.option ? THEME.COLOR_WHITE : THEME.COLOR_BLACK,
+                  color:
+                    answers[item._id] === option.option
+                      ? THEME.COLOR_WHITE
+                      : THEME.COLOR_BLACK,
                 }}>
                 {String.fromCharCode(97 + optionIndex)}. {option.text}
               </Text>
@@ -128,16 +152,19 @@ const TakeTest = ({navigation, route}) => {
       )}
       <View style={styles.buttonContainer}>
         <Pressable
-          style={({ pressed }) => [
+          style={({pressed}) => [
             styles.buyNow,
             {
-              backgroundColor: pressed ? THEME.COLOR_BORDER :
-                (test.currentPage === 1 ? THEME.COLOR_GRAY : THEME.COLOR_BLUE),
+              backgroundColor: pressed
+                ? THEME.COLOR_BORDER
+                : test.currentPage === 1
+                ? THEME.COLOR_GRAY
+                : THEME.COLOR_BLUE,
             },
           ]}
           onPress={handlePrev}
           disabled={test.currentPage === 1 || submitted}>
-          <Text style={[styles.buyNowText, { color: THEME.COLOR_WHITE }]}>
+          <Text style={[styles.buyNowText, {color: THEME.COLOR_WHITE}]}>
             <AntDesign
               name="left"
               style={{
@@ -149,17 +176,20 @@ const TakeTest = ({navigation, route}) => {
           </Text>
         </Pressable>
         <Pressable
-          style={({ pressed }) => [
+          style={({pressed}) => [
             styles.buyNow,
             {
-              backgroundColor: pressed ? THEME.COLOR_BORDER :
-                (test.currentPage === test.totalPages ? THEME.COLOR_GRAY : THEME.COLOR_BLUE),
+              backgroundColor: pressed
+                ? THEME.COLOR_BORDER
+                : test.currentPage === test.totalPages
+                ? THEME.COLOR_GRAY
+                : THEME.COLOR_BLUE,
               width: 100,
             },
           ]}
           onPress={handleNext}
           disabled={test.currentPage === test.totalPages || submitted}>
-          <Text style={[styles.buyNowText, { color: THEME.COLOR_WHITE }]}>
+          <Text style={[styles.buyNowText, {color: THEME.COLOR_WHITE}]}>
             Next
             <AntDesign
               name="right"
@@ -172,13 +202,13 @@ const TakeTest = ({navigation, route}) => {
         </Pressable>
       </View>
       <Pressable
-        style={({ pressed }) => [
+        style={({pressed}) => [
           styles.submitButton,
-          { backgroundColor: pressed ? THEME.COLOR_BORDER : THEME.COLOR_BLUE },
+          {backgroundColor: pressed ? THEME.COLOR_BORDER : THEME.COLOR_BLUE},
         ]}
         onPress={handleSubmit}
         disabled={submitted}>
-        <Text style={[styles.submitButtonText, { color: THEME.COLOR_WHITE }]}>
+        <Text style={[styles.submitButtonText, {color: THEME.COLOR_WHITE}]}>
           Submit
         </Text>
       </Pressable>
@@ -247,8 +277,8 @@ const styles = StyleSheet.create({
   loaders: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });
 
 export default TakeTest;

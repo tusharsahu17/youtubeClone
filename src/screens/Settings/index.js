@@ -1,15 +1,18 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {ROUTES} from '../../navigation/routes';
 import {THEME} from '../../utils/colors';
-import {logout} from '../../features/auth/authSlice';
-import {useDispatch} from 'react-redux';
+import {logout, selectUser} from '../../features/auth/authSlice';
+import {useDispatch, useSelector} from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 const Settings = ({navigation}) => {
   const dispatch = useDispatch();
-
+  const {isAuthenticated} = useSelector(selectUser);
+  const logouts = () => {
+    dispatch(logout());
+  };
   return (
     <View style={styles.maincontainer}>
       <View style={styles.container}>
@@ -60,9 +63,7 @@ const Settings = ({navigation}) => {
       </View>
       <View style={styles.container}>
         <Text style={styles.titleStyle}>Login</Text>
-        <TouchableOpacity
-          style={styles.styling}
-          onPress={() => dispatch(logout())}>
+        <TouchableOpacity style={styles.styling} onPress={logouts}>
           <View style={styles.itemContainer}>
             <MaterialCommunityIcons
               style={{
