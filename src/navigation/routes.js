@@ -23,4 +23,5 @@ export const ROUTES = {
   paidDetails: 'Paid Details',
   freeTest: 'Free Test',
   paidTestSeries: 'Test Series',
+  takeTest: 'Take Test',
 };

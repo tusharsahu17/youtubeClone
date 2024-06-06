@@ -14,14 +14,17 @@ import Affairs from '../Affairs';
 import {ROUTES} from '../../navigation/routes';
 import {ADS} from '../../utils/DataKey';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
+import LinearGradient from 'react-native-linear-gradient';
 import {getSliderImages} from '../../services/userApi';
+
 const Home = ({navigation}) => {
   const [slider, setSlider] = useState([]);
   const fetchSlider = async () => {
     try {
       const res = await getSliderImages();
       if (res.status) {
-        setSlider(res.data);
+        setSlider(res?.data);
       } else {
         setSlider([]);
       }
@@ -53,53 +56,101 @@ const Home = ({navigation}) => {
         <View style={styles.courseContainer}>
           <View style={styles.courses}>
             <TouchableOpacity onPress={handlePaidCourse}>
-              <Courses
-                title={'Paid Course'}
-                bgColor1={'#BCE7FC'}
-                bgColor2={'#5CA9E9'}
-                icon={'windows'}
-              />
+              <LinearGradient
+                colors={['#00B4DB', '#0083B0']}
+                style={styles.linearContainer}
+                start={{x: 0.0, y: 1.0}}
+                end={{x: 1.0, y: 1.0}}>
+                <AntDesign
+                  style={{
+                    color: THEME.COLOR_WHITE,
+                    fontSize: 30,
+                  }}
+                  name={'windows'}
+                />
+                <Text style={styles.textStyle}>Paid Course</Text>
+              </LinearGradient>
             </TouchableOpacity>
             <TouchableOpacity onPress={handlePaidTest}>
-              <Courses
-                title={'Paid Test'}
-                bgColor1={'#F7DBA7'}
-                bgColor2={'#F0AB86'}
-                icon={'switcher'}
-              />
+              <LinearGradient
+                colors={['#DA4453', '#89216B']}
+                style={styles.linearContainer}
+                start={{x: 0.0, y: 1.0}}
+                end={{x: 1.0, y: 1.0}}>
+                <AntDesign
+                  style={{
+                    color: THEME.COLOR_WHITE,
+                    fontSize: 30,
+                  }}
+                  name={'switcher'}
+                />
+                <Text style={styles.textStyle}>Paid Test</Text>
+              </LinearGradient>
             </TouchableOpacity>
-            <Courses
-              title={'E-Books'}
-              bgColor1={'#4CCD99'}
-              bgColor2={'#007F73'}
-              icon={'CodeSandbox'}
-            />
+            <LinearGradient
+              colors={['#38EF7D', '#11998E']}
+              style={styles.linearContainer}
+              start={{x: 0.0, y: 1.0}}
+              end={{x: 1.0, y: 1.0}}>
+              <Feather
+                style={{
+                  color: THEME.COLOR_WHITE,
+                  fontSize: 30,
+                }}
+                name={'codesandbox'}
+              />
+              <Text style={styles.textStyle}>E-Books</Text>
+            </LinearGradient>
           </View>
           <View style={styles.courses}>
             <TouchableOpacity onPress={handleFreeCourse}>
-              <Courses
-                title={'Free Course'}
-                bgColor2={'#ed4264'}
-                bgColor1={'#ff7e5f'}
-                icon={'youtube'}
-              />
+              <LinearGradient
+                colors={['#FF512F', '#DD2476']}
+                style={styles.linearContainer}
+                start={{x: 0.0, y: 1.0}}
+                end={{x: 1.0, y: 1.0}}>
+                <AntDesign
+                  style={{
+                    color: THEME.COLOR_WHITE,
+                    fontSize: 30,
+                  }}
+                  name={'youtube'}
+                />
+                <Text style={styles.textStyle}>Free Course</Text>
+              </LinearGradient>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleFreeTest}>
-              <Courses
-                title={'Free Test'}
-                bgColor1={'#DA3068'}
-                bgColor2={'#14469F'}
-                icon={'videocamera'}
-              />
+              <LinearGradient
+                colors={['#f12711', '#f5af19']}
+                style={styles.linearContainer}
+                start={{x: 0.0, y: 1.0}}
+                end={{x: 1.0, y: 1.0}}>
+                <AntDesign
+                  style={{
+                    color: THEME.COLOR_WHITE,
+                    fontSize: 30,
+                  }}
+                  name={'videocamera'}
+                />
+                <Text style={styles.textStyle}>Free Test</Text>
+              </LinearGradient>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate(ROUTES.syllabus)}>
-              <Courses
-                title={'Syllabus'}
-                bgColor1={'#31B7C2'}
-                bgColor2={'#7BC393'}
-                icon={'profile'}
-              />
+              <LinearGradient
+                colors={['#a8c0ff', '#3f2b96']}
+                style={styles.linearContainer}
+                start={{x: 0.0, y: 1.0}}
+                end={{x: 1.0, y: 1.0}}>
+                <AntDesign
+                  style={{
+                    color: THEME.COLOR_WHITE,
+                    fontSize: 30,
+                  }}
+                  name={'profile'}
+                />
+                <Text style={styles.textStyle}>Syllabus</Text>
+              </LinearGradient>
             </TouchableOpacity>
           </View>
         </View>
@@ -132,5 +183,20 @@ const styles = StyleSheet.create({
   },
   styling: {
     marginVertical: 20,
+  },
+  textStyle: {
+    paddingLeft: 10,
+    color: THEME.COLOR_WHITE,
+    fontSize: THEME.FONT_SIZE_MEDIUM,
+    fontWeight: THEME.FONT_WEIGHT_LIGHT,
+  },
+  linearContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    height: 100,
+    borderRadius: 10,
+    margin: 5,
+    marginVertical: 10,
   },
 });

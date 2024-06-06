@@ -22,6 +22,7 @@ import PaidExams from '../screens/MyCourse/paidCourse/PaidExams';
 import PaidDetails from '../screens/MyCourse/paidCourse/PaidDetails';
 import FreeTest from '../screens/FreeTest.js';
 import PaidTestSeries from '../screens/PaidTestSeries';
+import TakeTest from '../screens/Downloads/TakeTest';
 
 const Stack = createNativeStackNavigator();
 
@@ -127,6 +128,11 @@ const StackNavigation = () => {
             <Stack.Screen
               name={ROUTES.paidTestSeries}
               component={PaidTestSeries}
+              options={option}
+            />
+            <Stack.Screen
+              name={ROUTES.takeTest}
+              component={TakeTest}
               options={option}
             />
           </>

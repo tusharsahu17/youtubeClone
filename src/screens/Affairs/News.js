@@ -13,6 +13,7 @@ import {ROUTES} from '../../navigation/routes';
 
 const News = ({navigation, route}) => {
   const details = route?.params?.item;
+  console.log(details);
   useLayoutEffect(() => {
     navigation.setOptions({
       title: details?.title,
@@ -29,16 +30,17 @@ const News = ({navigation, route}) => {
       <Image
         style={styles.cardImage}
         source={{
-          // uri: `${details?.image}`,
-          uri: `${DOMAIN_URL}${details?.image}`,
+          uri: `${details?.image}`,
+
+          // uri: `${DOMAIN_URL}/media/${route.params.item.featured_image}`,
         }}
       />
 
       <ScrollView style={styles.cardHeader}>
         <Text style={styles.title} numberOfLines={2}>
-          {details?.title}
+          {route?.params?.item?.title}
         </Text>
-        <Text style={styles.description}>{details?.description}</Text>
+        <Text style={styles.description}>{route?.params?.item?.content}</Text>
       </ScrollView>
     </ScrollView>
   );
@@ -55,6 +57,7 @@ const styles = StyleSheet.create({
   cardImage: {
     height: 300,
     marginHorizontal: 10,
+    resizeMode: 'stretch',
   },
   title: {
     fontSize: 18,

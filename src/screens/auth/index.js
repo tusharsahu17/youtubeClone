@@ -16,7 +16,7 @@ import {LOGO} from '../../utils/image';
 import {THEME} from '../../utils/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
-import {signIn} from '../../features/auth/authSlice';
+import {signIn} from '../../features/auth/authSlice.js';
 
 const Login = ({navigation}) => {
   const [loader, setLoader] = useState(false);

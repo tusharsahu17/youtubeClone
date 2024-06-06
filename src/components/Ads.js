@@ -4,11 +4,15 @@ import Carousel from 'react-native-snap-carousel';
 import {DOMAIN_URL} from '../utils/constants';
 
 const Ads = ({data}) => {
+  const {width} = Dimensions.get('window');
+
   const renderItem = ({item}) => (
-    <Image
-      source={{uri: `${DOMAIN_URL}${item.image}`}}
-      style={[styles.image, {width: '100%'}]}
-    />
+    <>
+      <Image
+        source={{uri: DOMAIN_URL + item.image}}
+        style={[styles.image, {width: width}]}
+      />
+    </>
   );
 
   return (
@@ -21,12 +25,12 @@ const Ads = ({data}) => {
       <Carousel
         data={data}
         renderItem={renderItem}
-        sliderWidth={400}
+        sliderWidth={300}
         itemWidth={300}
         layout={'default'}
         loop
         autoplay
-        autoplayInterval={5000}
+        autoplayInterval={8000}
       />
     </View>
   );

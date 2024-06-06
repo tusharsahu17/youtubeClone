@@ -2,14 +2,13 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {THEME} from '../utils/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import LinearGradient from 'react-native-linear-gradient';
-const Courses = ({title, bgColor1, bgColor2, icon}) => {
+const Courses = ({title, bgColor, icon}) => {
   return (
-    <LinearGradient
-      colors={[`${bgColor1}`, `${bgColor2}`]}
-      start={{x: 0, y: 0}}
-      end={{x: 1, y: 0}}
-      style={styles.mainContainer}>
+    <View
+      style={[
+        styles.mainContainer,
+        {backgroundColor: bgColor ? bgColor : THEME.THEME_COLOR},
+      ]}>
       <AntDesign
         style={{
           color: THEME.COLOR_WHITE,
@@ -18,7 +17,7 @@ const Courses = ({title, bgColor1, bgColor2, icon}) => {
         name={icon}
       />
       <Text style={styles.textStyle}>{title}</Text>
-    </LinearGradient>
+    </View>
   );
 };
 

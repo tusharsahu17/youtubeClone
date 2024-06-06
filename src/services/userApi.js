@@ -63,9 +63,30 @@ export const getPaidTests = async () => {
     return formatErrorMessage(error);
   }
 };
+export const myTestSeries = async userId => {
+  try {
+    const {data} = await customApi.get(
+      `/paid-test-series/testseriesById/${userId}`,
+    );
+    return data;
+  } catch (error) {
+    return formatErrorMessage(error);
+  }
+};
+export const takeTest = async ({testId, page}) => {
+  try {
+    const {data} = await customApi.get(
+      `/paid-test-series/get-test-questions/${testId}?page=${page}&limit=1`,
+    );
+    return data;
+  } catch (error) {
+    return formatErrorMessage(error);
+  }
+};
 export const getSliderImages = async () => {
   try {
-    const {data} = await customApi.get(`/slider`);
+    const {data} = await customApi.get(`/slider/`);
+    console.log('------------>', data);
     return data;
   } catch (error) {
     return formatErrorMessage(error);
