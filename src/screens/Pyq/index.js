@@ -1,13 +1,12 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { THEME } from '../../utils/colors'
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import { getPyq } from '../../services/userApi';
 import { useIsFocused } from '@react-navigation/native';
-import WebView from 'react-native-webview';
+import { ROUTES } from '../../navigation/routes';
 
 
-const Pyq = () => {
+const Pyq = ({ navigation }) => {
     const [pyqData, setPyqData] = useState([]);
     const isFocused = useIsFocused()
     useEffect(() => {
@@ -16,26 +15,23 @@ const Pyq = () => {
     }, [isFocused]);
     const fetchPyq = async () => {
         const res = await getPyq();
-        console.log('================>', res)
         if (res?.status) {
             setPyqData(res.files);
         } else {
             console.log('err', res?.message);
         }
     };
-
+    const handleDownload = (item) => {
+        const PNQUrl = item.replace(/\\/g, '/');
+        navigation.navigate(ROUTES.downloadPnq, { item: PNQUrl })
+    }
     const renderItem = ({ item }) => {
-        console.log('----------->', item)
         return (
             <View style={styles.renderContainer}>
-                <Text>{item?.title}</Text>
-                <Text>{item?.file}</Text>
-                {/* <WebView
-                    source={{ uri: pdfUrl }}
-                    style={styles.webview}
-                    startInLoadingState={true}
-                    scalesPageToFit={true}
-                /> */}
+                <Text style={styles.textStyle}>{item?.name}</Text>
+                <View style={styles.btnStyle} >
+                    <Button title='Download PDF' onPress={() => handleDownload(item?.file)} />
+                </View>
             </View>
         )
     }
@@ -43,7 +39,6 @@ const Pyq = () => {
     return (
         <View style={styles.container}>
             <FlatList
-                horizontal={true}
                 data={pyqData}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
@@ -63,6 +58,23 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     renderContainer: {
-
+        width: '100%',
+        minHeight: 100,
+        borderWidth: 1,
+        borderRadius: 10,
+        marginVertical: 10,
+        borderColor: THEME.COLOR_GRAY_LIGHT
+    },
+    textStyle: {
+        fontSize: THEME.FONT_SIZE_MEDIUM,
+        fontWeight: THEME.FONT_WEIGHT_MEDIUM,
+        color: THEME.COLOR_BLACK,
+        padding: 10,
+        paddingBottom: 30,
+    },
+    btnStyle: {
+        margin: 10,
+        width: 150,
+        alignSelf: 'flex-end'
     }
 })

@@ -26,4 +26,7 @@ export const ROUTES = {
   takeTest: 'Take Test',
   addFreeTest: 'Add Free Test',
   pyq: 'Previous Year Question',
+  downloadPnq: 'Download PNQ',
+  add: 'Add',
+  addPyq: 'Add PYQ',
 };

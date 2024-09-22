@@ -159,7 +159,7 @@ const Home = ({ navigation }) => {
               </LinearGradient>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate(ROUTES.addFreeTest)}>
+              onPress={() => navigation.navigate(ROUTES.add)}>
               <LinearGradient
                 colors={[THEME.COLOR_WARNING, THEME.COLOR_WHITE,]}
                 style={styles.linearContainer}
@@ -172,7 +172,7 @@ const Home = ({ navigation }) => {
                   }}
                   name={'profile'}
                 />
-                <Text style={styles.textStyle}>Free Test</Text>
+                <Text style={styles.textStyle}>Add</Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>
