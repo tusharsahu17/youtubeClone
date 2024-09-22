@@ -66,18 +66,20 @@ const Dashboard = ({navigation}) => {
   );
 
   return (
-    <View style={{backgroundColor: THEME.COLOR_WHITE}}>
-      {loading && (
-        <View style={{width: 100, height: 100}}>
-          <ActivityIndicator color={THEME.THEME_COLOR} size="large" />
+    <>
+    {loading && (
+        <View style={styles.loaders}>
+          <ActivityIndicator color={THEME.PRIMARY_COLOR} size="large" animating={true}/>
         </View>
-      )}
+    )}
+    <View style={{backgroundColor: THEME.COLOR_WHITE}}>
       <FlatList
         data={videos}
         renderItem={({item, index}) => <Item item={item} />}
         keyExtractor={item => item.etag}
-      />
+        />
     </View>
+    </>
   );
 };
 
@@ -106,6 +108,10 @@ const styles = StyleSheet.create({
     width: 230,
     marginLeft: 15,
   },
+  loaders:{
+    flex:1,
+    justifyContent:'center'
+  }
 });
 
 export default Dashboard;

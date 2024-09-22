@@ -6,19 +6,19 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Courses from '../../components/Courses';
 import Ads from '../../components/Ads';
-import {THEME} from '../../utils/colors';
+import { THEME } from '../../utils/colors';
 import Affairs from '../Affairs';
-import {ROUTES} from '../../navigation/routes';
-import {ADS} from '../../utils/DataKey';
+import { ROUTES } from '../../navigation/routes';
+import { ADS } from '../../utils/DataKey';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
-import {getSliderImages} from '../../services/userApi';
+import { getSliderImages } from '../../services/userApi';
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   const [slider, setSlider] = useState([]);
   const fetchSlider = async () => {
     try {
@@ -45,6 +45,9 @@ const Home = ({navigation}) => {
   const handleFreeCourse = async () => {
     navigation.navigate(ROUTES.youtube);
   };
+  const handlePyq = async () => {
+    navigation.navigate(ROUTES.pyq);
+  };
   const handleFreeTest = async () => {
     navigation.navigate(ROUTES.freeTest);
   };
@@ -59,8 +62,8 @@ const Home = ({navigation}) => {
               <LinearGradient
                 colors={['#00B4DB', '#0083B0']}
                 style={styles.linearContainer}
-                start={{x: 0.0, y: 1.0}}
-                end={{x: 1.0, y: 1.0}}>
+                start={{ x: 0.0, y: 1.0 }}
+                end={{ x: 1.0, y: 1.0 }}>
                 <AntDesign
                   style={{
                     color: THEME.COLOR_WHITE,
@@ -75,8 +78,8 @@ const Home = ({navigation}) => {
               <LinearGradient
                 colors={['#DA4453', '#89216B']}
                 style={styles.linearContainer}
-                start={{x: 0.0, y: 1.0}}
-                end={{x: 1.0, y: 1.0}}>
+                start={{ x: 0.0, y: 1.0 }}
+                end={{ x: 1.0, y: 1.0 }}>
                 <AntDesign
                   style={{
                     color: THEME.COLOR_WHITE,
@@ -87,28 +90,31 @@ const Home = ({navigation}) => {
                 <Text style={styles.textStyle}>Paid Test</Text>
               </LinearGradient>
             </TouchableOpacity>
-            <LinearGradient
-              colors={['#38EF7D', '#11998E']}
-              style={styles.linearContainer}
-              start={{x: 0.0, y: 1.0}}
-              end={{x: 1.0, y: 1.0}}>
-              <Feather
-                style={{
-                  color: THEME.COLOR_WHITE,
-                  fontSize: 30,
-                }}
-                name={'codesandbox'}
-              />
-              <Text style={styles.textStyle}>E-Books</Text>
-            </LinearGradient>
+            <TouchableOpacity onPress={handlePyq}>
+              <LinearGradient
+                colors={['#38EF7D', '#11998E']}
+                style={styles.linearContainer}
+                start={{ x: 0.0, y: 1.0 }}
+                end={{ x: 1.0, y: 1.0 }}>
+                <Feather
+                  style={{
+                    color: THEME.COLOR_WHITE,
+                    fontSize: 30,
+                  }}
+                  name={'codesandbox'}
+                />
+                <Text style={styles.textStyle}>PYQ</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+
           </View>
           <View style={styles.courses}>
             <TouchableOpacity onPress={handleFreeCourse}>
               <LinearGradient
                 colors={['#FF512F', '#DD2476']}
                 style={styles.linearContainer}
-                start={{x: 0.0, y: 1.0}}
-                end={{x: 1.0, y: 1.0}}>
+                start={{ x: 0.0, y: 1.0 }}
+                end={{ x: 1.0, y: 1.0 }}>
                 <AntDesign
                   style={{
                     color: THEME.COLOR_WHITE,
@@ -123,8 +129,8 @@ const Home = ({navigation}) => {
               <LinearGradient
                 colors={['#f12711', '#f5af19']}
                 style={styles.linearContainer}
-                start={{x: 0.0, y: 1.0}}
-                end={{x: 1.0, y: 1.0}}>
+                start={{ x: 0.0, y: 1.0 }}
+                end={{ x: 1.0, y: 1.0 }}>
                 <AntDesign
                   style={{
                     color: THEME.COLOR_WHITE,
@@ -140,8 +146,8 @@ const Home = ({navigation}) => {
               <LinearGradient
                 colors={['#a8c0ff', '#3f2b96']}
                 style={styles.linearContainer}
-                start={{x: 0.0, y: 1.0}}
-                end={{x: 1.0, y: 1.0}}>
+                start={{ x: 0.0, y: 1.0 }}
+                end={{ x: 1.0, y: 1.0 }}>
                 <AntDesign
                   style={{
                     color: THEME.COLOR_WHITE,
@@ -150,6 +156,23 @@ const Home = ({navigation}) => {
                   name={'profile'}
                 />
                 <Text style={styles.textStyle}>Syllabus</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(ROUTES.addFreeTest)}>
+              <LinearGradient
+                colors={[THEME.COLOR_WARNING, THEME.COLOR_WHITE,]}
+                style={styles.linearContainer}
+                start={{ x: 0.0, y: 1.0 }}
+                end={{ x: 1.0, y: 1.0 }}>
+                <AntDesign
+                  style={{
+                    color: THEME.COLOR_WHITE,
+                    fontSize: 30,
+                  }}
+                  name={'profile'}
+                />
+                <Text style={styles.textStyle}>Free Test</Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>

@@ -119,3 +119,33 @@ export const TEST = {
     },
   ],
 };
+export const Level = [{
+  value: 1,
+  label: 'Easy'
+},
+{
+  value: 2,
+  label: 'Medium'
+},
+{
+  value: 3,
+  label: 'Hard'
+},
+]
+export const Answer = [{
+  value: 1,
+  label: 'A'
+},
+{
+  value: 2,
+  label: 'B'
+},
+{
+  value: 3,
+  label: 'C'
+},
+{
+  value: 4,
+  label: 'D'
+},
+]

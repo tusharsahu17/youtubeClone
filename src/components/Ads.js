@@ -1,16 +1,16 @@
 import React from 'react';
-import {View, Image, Text, StyleSheet, Dimensions} from 'react-native';
+import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import {DOMAIN_URL} from '../utils/constants';
+import { DOMAIN_URL } from '../utils/constants';
 
-const Ads = ({data}) => {
-  const {width} = Dimensions.get('window');
+const Ads = ({ data }) => {
+  const { width } = Dimensions.get('window');
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <>
       <Image
-        source={{uri: DOMAIN_URL + item.image}}
-        style={[styles.image, {width: width}]}
+        source={{ uri: DOMAIN_URL + item.image }}
+        style={[styles.image, { width: width }]}
       />
     </>
   );

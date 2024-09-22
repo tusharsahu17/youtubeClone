@@ -24,4 +24,6 @@ export const ROUTES = {
   freeTest: 'Free Test',
   paidTestSeries: 'Test Series',
   takeTest: 'Take Test',
+  addFreeTest: 'Add Free Test',
+  pyq: 'Previous Year Question',
 };

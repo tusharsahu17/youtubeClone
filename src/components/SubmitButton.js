@@ -3,10 +3,10 @@ import React from 'react';
 import { THEME } from '../utils/colors';
 import { Tile } from '@rneui/base';
 
-const SubmitButton = ({ title, handlePress }) => {
+const SubmitButton = ({ title, handlePress, bgColor, fColor }) => {
   return (
-    <Pressable style={styles.buyNow} onPress={handlePress}>
-      <Text style={styles.buyNowText}>{title}</Text>
+    <Pressable style={[styles.buyNow, { backgroundColor: bgColor ? bgColor : THEME.COLOR_WHITE }]} onPress={handlePress}>
+      <Text style={[styles.buyNowText, { color: fColor ? fColor : THEME.PRIMARY_COLOR }]}>{title}</Text>
     </Pressable>
   );
 };
@@ -15,8 +15,7 @@ export default SubmitButton;
 
 const styles = StyleSheet.create({
   buyNow: {
-    flex:0.8,
-    backgroundColor: THEME.COLOR_WHITE,
+    flex: 0.8,
     borderRadius: 10,
     height: 40,
     alignItems: 'center',

@@ -34,26 +34,26 @@ const FreeTest = () => {
     setAnswers(newAnswers);
     setCorrectAnswers(correct)
   };
-  
+
   const handleSubmit = () => {
     setSubmitted(true);
     let totalScore = 0;
 
     // Assuming `answers` is the user's selected answers object
     // and `correctAnswers` is the provided correct answers object
-  
+
     Object.entries(answers).forEach(([questionId, selectedOption]) => {
-        const correctAnswer = correctAnswers[questionId];
-        if (correctAnswer && correctAnswer === selectedOption) {
-            totalScore += 1;
-        }
+      const correctAnswer = correctAnswers[questionId];
+      if (correctAnswer && correctAnswer === selectedOption) {
+        totalScore += 1;
+      }
     });
     setScore(totalScore);
     Alert.alert(
-        'Test Submitted',
-        `Your score is ${totalScore} out of ${Object.keys(correctAnswers).length}`,
+      'Test Submitted',
+      `Your score is ${totalScore} out of ${Object.keys(correctAnswers).length}`,
     );
-};
+  };
   const getTest = async () => {
     setLoader(true)
     const response = await getFreeTest(pageNo);
@@ -77,7 +77,14 @@ const FreeTest = () => {
       setPageNo(1);
     }
   }, [test, pageNo, answers]);
-
+  const getColor = (color) => {
+    switch (color) {
+      case 'Easy': return THEME.COLOR_SUCCESS
+      case 'Medium': return THEME.COLOR_WARNING
+      case 'Hard': return THEME.COLOR_DANGER
+      default: return THEME.COLOR_WARNING
+    }
+  }
   const renderItem = ({ item }) => {
     if (!item) return null; // Check to ensure the item is not undefined
     return (
@@ -85,8 +92,14 @@ const FreeTest = () => {
         <Text style={styles.questionNumber}>
           Question: {pageNo}/{test.totalPages}
         </Text>
+        <View style={[styles.levelBox, { backgroundColor: getColor(item?.level) }]}>
+          <Text style={[styles.questionNumber, styles.levelStyle]}>
+            {item.level}
+          </Text>
+        </View>
         <Text style={styles.questionText}>
-          Q{pageNo}. {item.question}
+          {/* Q{pageNo}. */}
+          {item.question}
         </Text>
         {Object.entries(item.options).map(([key, option], optionIndex) => (
           <View key={key} style={styles.optionContainer}>
@@ -98,7 +111,7 @@ const FreeTest = () => {
                   borderColor: answers[item._id] === key ? THEME.COLOR_BLUE : '#ccc',
                 }
               ]}
-              onPress={() => handleAnswer(item._id, key,item.answer)}
+              onPress={() => handleAnswer(item._id, key, item.answer)}
               disabled={submitted}>
               <Text
                 style={{
@@ -188,6 +201,19 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     marginTop: 0,
+  },
+  levelBox: {
+    width: 80,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  levelStyle: {
+    color: THEME.COLOR_WHITE,
+    textTransform: 'capitalize',
+    alignSelf: 'center',
+    paddingTop: 5
+
   },
   questionContainer: {
     marginHorizontal: 10,
