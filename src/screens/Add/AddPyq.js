@@ -4,39 +4,41 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import axios from 'axios';
 import { THEME } from '../../utils/colors';
 import { openSettings } from 'react-native-permissions'; // Assuming you are using react-native-permissions
+import { addNewPyq } from '../../services/userApi';
 
 const AddPyq = () => {
     const [modalVisible, setModalVisible] = useState(false);
 
     const requestPermission = async () => {
         try {
-            const granted = await PermissionsAndroid.request(
+            const permissions = [
                 PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-                {
-                    title: 'Storage Permission',
-                    message: 'App needs access to your storage to pick images.',
-                    buttonNeutral: 'Ask Me Later',
-                    buttonNegative: 'Cancel',
-                    buttonPositive: 'OK',
-                }
-            );
-            return granted === PermissionsAndroid.RESULTS.GRANTED;
+                PermissionsAndroid.PERMISSIONS.CAMERA,
+                PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            ];
+
+            const granted = await PermissionsAndroid.requestMultiple(permissions, {
+                title: 'Storage and Camera Permission',
+                message: 'App needs access to your storage and camera to pick images.',
+                buttonNeutral: 'Ask Me Later',
+                buttonNegative: 'Cancel',
+                buttonPositive: 'OK',
+            });
+
+            return Object.values(granted).every((result) => result === PermissionsAndroid.RESULTS.GRANTED);
         } catch (err) {
             console.warn(err);
             return false;
         }
     };
-
     const pickImage = async () => {
         console.log('==============>rer');
 
         const hasPermission = await requestPermission();
-        if (!hasPermission) {
-            setModalVisible(true); // Show modal if permission is denied
-            return;
-        }
+        console.log('------------->', hasPermission)
 
         launchImageLibrary({ mediaType: 'photo' }, (response) => {
+            console.log('====================>', response.assets[0])
             if (response.didCancel) {
                 Alert.alert('User cancelled image picker');
             } else if (response.errorCode) {
@@ -47,10 +49,6 @@ const AddPyq = () => {
         });
     };
 
-    const openAppSettings = () => {
-        openSettings().catch(() => Alert.alert('Unable to open settings'));
-    };
-
     const uploadImage = async (image) => {
         const formData = new FormData();
         formData.append('file', {
@@ -58,17 +56,19 @@ const AddPyq = () => {
             type: image.type,
             name: image.fileName,
         });
-
         try {
-            await axios.post('YOUR_SERVER_URL', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            Alert.alert('Upload Successful');
-        } catch (error) {
-            Alert.alert('Upload Failed');
+            console.log('formData--------------->', formData?._parts)
+            // setLoader(true)
+            const response = await addNewPyq(formData);
+            console.log('response--------------->', response)
+            if (response.status) {
+
+            }
         }
+        catch (err) {
+            console.log('Error ', err)
+        }
+        // setLoader(false)
     };
 
     return (
@@ -78,22 +78,6 @@ const AddPyq = () => {
                 <Text style={styles.textStyle}>Upload Image</Text>
             </TouchableOpacity>
 
-            <Modal
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => setModalVisible(false)}
-            >
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>Permission Required</Text>
-                        <Text style={styles.modalMessage}>
-                            To upload images, we need access to your storage. Please grant permission in settings.
-                        </Text>
-                        <Button title="Open Settings" onPress={openAppSettings} />
-                        <Button title="Cancel" onPress={() => setModalVisible(false)} />
-                    </View>
-                </View>
-            </Modal>
         </View>
     );
 };

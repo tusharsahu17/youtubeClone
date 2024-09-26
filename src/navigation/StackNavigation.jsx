@@ -28,6 +28,8 @@ import Pyq from '../screens/Pyq';
 import DownloadPnq from '../screens/Pyq/DownloadPnq';
 import Add from '../screens/Add';
 import AddPyq from '../screens/Add/AddPyq';
+import AddNews from '../screens/Add/AddNews';
+import UpdateNews from '../screens/Affairs/UpdateNews';
 
 const Stack = createNativeStackNavigator();
 
@@ -165,7 +167,16 @@ const StackNavigation = () => {
               component={AddPyq}
               options={option}
             />
-           
+             <Stack.Screen
+              name={ROUTES.addNews}
+              component={AddNews}
+              options={option}
+            />
+               <Stack.Screen
+              name={ROUTES.updateNews}
+              component={UpdateNews}
+              options={option}
+            />
           </>
         </Stack.Group>
       )}

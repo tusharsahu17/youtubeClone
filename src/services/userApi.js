@@ -93,12 +93,9 @@ export const getSliderImages = async () => {
 };
 export const addFreeQuestion = async body => {
   try {
-    console.log('================?', body)
     const { data } = await customApi.post(`/question/create`, body);
-    console.log('------->', data)
     return data;
   } catch (error) {
-    console.log('=======>err', error)
     return formatErrorMessage(error);
   }
 };
@@ -108,5 +105,45 @@ export const getPyq = async () => {
     return data;
   } catch (error) {
     return formatErrorMessage(error);
+  }
+};
+export const addNewPyq = async (formData) => {
+  try {
+    const { data } = await customApi.post(`/pyq/postPyq`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return data;
+  } catch (error) {
+    return formatErrorMessage(error);
+  }
+};
+export const postNews = async (formData) => {
+  try {
+    const { data } = await customApi.post(`/news/create`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return data;
+  } catch (error) {
+    return formatErrorMessage(error);
+  }
+};
+export const editNews = async ({ id, payload }) => {
+  try {
+    const { data } = await customApi.put(`/news/update/${id}`, payload);
+    return data;
+  } catch (error) {
+    return { message: 'Network Error', status: false };
+  }
+};
+export const deleteNews = async (id) => {
+  try {
+    const { data } = await customApi.delete(`/news/delete/${id}`);
+    return data;
+  } catch (error) {
+    return { message: 'Network Error', status: false };
   }
 };

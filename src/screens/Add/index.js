@@ -27,9 +27,9 @@ const Add = ({ navigation }) => {
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate(ROUTES.addFreeTest)}>
+            <TouchableOpacity onPress={() => navigation.navigate(ROUTES.addNews)}>
                 <View style={styles.itemStyle}>
-                    <Text style={styles.textStyle}>Add Free Test</Text>
+                    <Text style={styles.textStyle}>Add News</Text>
                     <AntDesign
                         size={30}
                         style={styles.icon}

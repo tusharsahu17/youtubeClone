@@ -15,9 +15,10 @@ export default SubmitButton;
 
 const styles = StyleSheet.create({
   buyNow: {
-    flex: 0.8,
+    width: '90%',
     borderRadius: 10,
     height: 40,
+    alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
   },
